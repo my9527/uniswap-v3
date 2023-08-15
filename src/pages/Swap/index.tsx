@@ -63,6 +63,7 @@ import { didUserReject } from 'utils/swapErrorToUserReadableMessage'
 
 import { useScreenSize } from '../../hooks/useScreenSize'
 import { UniswapXOptIn } from './UniswapXOptIn'
+import SwapBtnSvg from "assets/svg/xdoge/swap_btn.svg"
 
 export const ArrowContainer = styled.div`
   display: inline-flex;
@@ -74,8 +75,9 @@ export const ArrowContainer = styled.div`
 `
 
 const SwapSection = styled.div`
-  background-color: ${({ theme }) => theme.backgroundModule};
-  border-radius: 16px;
+  // background-color: ${({ theme }) => theme.backgroundModule};
+  background: #EEEEEE;
+  border-radius: 12px;
   color: ${({ theme }) => theme.textSecondary};
   font-size: 14px;
   font-weight: 500;
@@ -97,7 +99,7 @@ const SwapSection = styled.div`
     height: 100%;
     pointer-events: none;
     content: '';
-    border: 1px solid ${({ theme }) => theme.backgroundModule};
+    // border: 1px solid ${({ theme }) => theme.backgroundModule};
   }
 
   &:hover:before {
@@ -110,7 +112,7 @@ const SwapSection = styled.div`
 `
 
 const OutputSwapSection = styled(SwapSection)`
-  border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
+  // border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
 `
 
 function getIsValidSwapQuote(
@@ -589,7 +591,7 @@ export function Swap({
         <SwapSection>
           <Trace section={InterfaceSectionName.CURRENCY_INPUT_PANEL}>
             <SwapCurrencyInputPanel
-              label={<Trans>You pay</Trans>}
+              // label={<Trans>You pay</Trans>}
               disabled={disableTokenInputs}
               value={formattedAmounts[Field.INPUT]}
               showMaxButton={showMaxButton}
@@ -605,7 +607,7 @@ export function Swap({
             />
           </Trace>
         </SwapSection>
-        <ArrowWrapper clickable={isSupportedChain(chainId)}>
+        <ArrowWrapper style={{ borderColor: "#fff", backgroundColor: "#EEEEEE" }} clickable={isSupportedChain(chainId)}>
           <TraceEvent
             events={[BrowserEvent.onClick]}
             name={SwapEventName.SWAP_TOKENS_REVERSED}
@@ -618,7 +620,7 @@ export function Swap({
               }}
               color={theme.textPrimary}
             >
-              <ArrowDown size="16" color={theme.textPrimary} />
+              <ArrowDown size="16" color={"#000"} />
             </ArrowContainer>
           </TraceEvent>
         </ArrowWrapper>
@@ -631,7 +633,8 @@ export function Swap({
                 value={formattedAmounts[Field.OUTPUT]}
                 disabled={disableTokenInputs}
                 onUserInput={handleTypeOutput}
-                label={<Trans>You receive</Trans>}
+                // label={<Trans>You receive</Trans>}
+                // label={<span/>}
                 showMaxButton={false}
                 hideBalance={false}
                 fiatValue={showFiatValueOutput ? fiatValueOutput : undefined}
@@ -668,7 +671,9 @@ export function Swap({
           />
         )}
         {showPriceImpactWarning && <PriceImpactWarning priceImpact={largerPriceImpact} />}
-        <div>
+        <div style={{
+          backgroundImage: `url('${SwapBtnSvg}')`
+        }}>
           {swapIsUnsupported ? (
             <ButtonPrimary $borderRadius="16px" disabled={true}>
               <ThemedText.DeprecatedMain mb="4px">

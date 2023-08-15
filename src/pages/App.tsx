@@ -44,6 +44,7 @@ import RemoveLiquidityV3 from './RemoveLiquidity/V3'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
+import XdogeBackgroundImage from "../assets/svg/xdoge_bg.svg"
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
@@ -60,6 +61,7 @@ const BodyWrapper = styled.div`
   padding: ${({ theme }) => theme.navHeight}px 0px 5rem 0px;
   align-items: center;
   flex: 1;
+  background-image: url("${XdogeBackgroundImage}");
 `
 
 const MobileBottomBar = styled.div`

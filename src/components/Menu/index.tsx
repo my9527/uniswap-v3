@@ -56,12 +56,13 @@ const MenuFlyout = styled.span<{ flyoutAlignment?: FlyoutAlignment }>`
 `
 
 const MenuItem = styled(ExternalLink)`
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-  padding: 0.5rem 0.5rem;
-  justify-content: space-between;
+margin-right: 24px;
+font-size: 18px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0.15px;
+color: rgb(255, 255, 255);
+text-decoration: none;
   color: ${({ theme }) => theme.textSecondary};
   :hover {
     color: ${({ theme }) => theme.textPrimary};

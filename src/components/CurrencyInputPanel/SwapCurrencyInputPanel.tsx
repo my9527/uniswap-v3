@@ -60,17 +60,19 @@ const CurrencySelect = styled(ButtonGray)<{
   disabled?: boolean
 }>`
   align-items: center;
-  background-color: ${({ selected, theme }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+  // background-color: ${({ selected, theme }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+  background: #C8F2F2;
   opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
-  color: ${({ selected, theme }) => (selected ? theme.textPrimary : theme.white)};
+  // color: ${({ selected, theme }) => (selected ? theme.textPrimary : theme.white)};
+  color: #000000;
   cursor: pointer;
   height: unset;
-  border-radius: 16px;
+  border-radius: 0;
   outline: none;
   user-select: none;
   border: none;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 500;
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
   padding: ${({ selected }) => (selected ? '4px 8px 4px 4px' : '6px 6px 6px 8px')};
@@ -80,7 +82,8 @@ const CurrencySelect = styled(ButtonGray)<{
 
   &:hover,
   &:active {
-    background-color: ${({ theme, selected }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+    // background-color: ${({ theme, selected }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
+    background: #C8F2F2;
   }
 
   &:before {
@@ -96,13 +99,13 @@ const CurrencySelect = styled(ButtonGray)<{
     content: '';
   }
 
-  &:hover:before {
-    background-color: ${({ theme }) => theme.stateOverlayHover};
-  }
+  // &:hover:before {
+  //   background-color: ${({ theme }) => theme.stateOverlayHover};
+  // }
 
-  &:active:before {
-    background-color: ${({ theme }) => theme.stateOverlayPressed};
-  }
+  // &:active:before {
+  //   background-color: ${({ theme }) => theme.stateOverlayPressed};
+  // }
 
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
 `
@@ -145,7 +148,7 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
   margin-left: 8px;
 
   path {
-    stroke: ${({ selected, theme }) => (selected ? theme.textPrimary : theme.white)};
+    stroke: ${({ selected, theme }) => "#000"};
     stroke-width: 2px;
   }
 `
@@ -179,8 +182,8 @@ const StyledBalanceMax = styled.button<{ disabled?: boolean }>`
 const StyledNumericalInput = styled(NumericalInput)<{ $loading: boolean }>`
   ${loadingOpacityMixin};
   text-align: left;
-  font-size: 36px;
-  line-height: 44px;
+  font-size: 32px;
+  line-height: 48px;
   font-variant: small-caps;
 `
 
@@ -189,7 +192,7 @@ interface SwapCurrencyInputPanelProps {
   onUserInput: (value: string) => void
   onMax?: () => void
   showMaxButton: boolean
-  label: ReactNode
+  label?: ReactNode
   onCurrencySelect?: (currency: Currency) => void
   currency?: Currency | null
   hideBalance?: boolean

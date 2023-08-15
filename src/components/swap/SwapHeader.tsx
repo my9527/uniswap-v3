@@ -33,7 +33,7 @@ export default function SwapHeader({
   return (
     <StyledSwapHeader>
       <HeaderButtonContainer>
-        <ThemedText.SubHeader>
+        <ThemedText.SubHeader style={{ color: "#000" }}>
           <Trans>Swap</Trans>
         </ThemedText.SubHeader>
         {fiatOnRampButtonEnabled && <SwapBuyFiatButton />}

@@ -25,14 +25,16 @@ export const PageWrapper = styled.div`
 // Mostly copied from `AppBody` but it was getting too hard to maintain backwards compatibility.
 export const SwapWrapper = styled.main<{ chainId?: number }>`
   position: relative;
-  background: ${({ theme }) => theme.backgroundSurface};
-  border-radius: 24px;
+  // background: ${({ theme }) => theme.backgroundSurface};
+  background: #fff;
+  border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.backgroundOutline};
   padding: 8px;
   padding-top: 12px;
   box-shadow: ${({ chainId }) => !!chainId && chainId === ChainId.BNB && '0px 40px 120px 0px #f0b90b29'};
   z-index: ${Z_INDEX.default};
   transition: transform 250ms ease;
+  color: #000;
 
   &:hover {
     border: 1px solid ${({ theme }) => theme.backgroundOutline};

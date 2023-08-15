@@ -22,8 +22,8 @@ export const logo = style([
 export const baseSideContainer = style([
   sprinkles({
     display: 'flex',
-    width: 'full',
-    flex: '1',
+    // width: 'full',
+    // flex: '1',
     flexShrink: '2',
   }),
 ])
@@ -32,6 +32,8 @@ export const leftSideContainer = style([
   baseSideContainer,
   sprinkles({
     alignItems: 'center',
+    // width: 'full',
+    flex: '1',
     justifyContent: 'flex-start',
   }),
 ])
@@ -75,7 +77,8 @@ const baseMenuItem = style([
     lineHeight: '24px',
     textDecoration: 'none',
     ':hover': {
-      background: vars.color.lightGrayOverlay,
+      // background: vars.color.lightGrayOverlay,
+      opacity: 0.8
     },
   },
 ])
@@ -83,7 +86,7 @@ const baseMenuItem = style([
 export const menuItem = style([
   baseMenuItem,
   sprinkles({
-    color: 'textSecondary',
+    color: 'white',
   }),
 ])
 

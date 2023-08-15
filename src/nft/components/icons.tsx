@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { useTheme } from 'styled-components'
 
 import { themeVars, vars } from '../css/sprinkles.css'
+import { ReactComponent as XdogeLogoSVG } from "assets/svg/xdoge/logo.svg"
 
 // ESLint reports `fill` is missing, whereas it exists on an SVGProps type
 type SVGProps = React.SVGProps<SVGSVGElement> & {
@@ -21,6 +22,10 @@ export const UniIcon = (props: SVGProps) => (
     />
   </svg>
 )
+
+export const XdogeLogoIcon = (props: SVGProps) => {
+  return <XdogeLogoSVG {...props} />
+}
 
 export const ChevronUpIcon = ({
   secondaryColor,

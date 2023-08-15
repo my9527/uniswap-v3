@@ -48,8 +48,9 @@ export function SystemThemeUpdater() {
 export function useIsDarkMode(): boolean {
   const mode = useAtomValue(themeModeAtom)
   const systemTheme = useAtomValue(systemThemeAtom)
+  return true;
 
-  return (mode === ThemeMode.AUTO ? systemTheme : mode) === ThemeMode.DARK
+  // return (mode === ThemeMode.AUTO ? systemTheme : mode) === ThemeMode.DARK
 }
 
 export function useDarkModeManager(): [boolean, (mode: ThemeMode) => void] {

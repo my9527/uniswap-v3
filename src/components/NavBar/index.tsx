@@ -8,7 +8,7 @@ import { useIsNftPage } from 'hooks/useIsNftPage'
 import { useIsPoolsPage } from 'hooks/useIsPoolsPage'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
-import { UniIcon } from 'nft/components/icons'
+import { XdogeLogoIcon } from 'nft/components/icons'
 import { useProfilePageState } from 'nft/hooks'
 import { ProfilePageStateType } from 'nft/types'
 import { ReactNode, useCallback } from 'react'
@@ -28,6 +28,8 @@ const Nav = styled.nav`
   width: 100%;
   height: ${({ theme }) => theme.navHeight}px;
   z-index: 2;
+  background: rgba(18, 19, 22, 0.4);
+
 `
 
 interface MenuItemProps {
@@ -44,7 +46,15 @@ const MenuItem = ({ href, dataTestId, id, isActive, children }: MenuItemProps) =
       to={href}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
-      style={{ textDecoration: 'none' }}
+      style={{ 
+        textDecoration: 'none',
+        fontSize: '18px',
+        paddingLeft: '0',
+        paddingRight: '0',
+        whiteSpace: 'nowrap',
+        width: 'auto',
+        marginRight: '24px'
+      }}
       data-testid={dataTestId}
     >
       {children}
@@ -64,25 +74,39 @@ export const PageTabs = () => {
 
   return (
     <>
+      <MenuItem href="/" isActive={pathname.startsWith('/')}>
+        <Trans>Home</Trans>
+      </MenuItem>
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
+      </MenuItem>
+      <MenuItem href="/futures" isActive={pathname.startsWith('/futures')}>
+        <Trans>Futures</Trans>
+      </MenuItem>
+      <MenuItem href="/farm" isActive={pathname.startsWith('/farm')}>
+        <Trans>Farm</Trans>
+      </MenuItem>
+      <MenuItem href="/fair-launch" isActive={pathname.startsWith('/fair-launch')}>
+        <Trans>Fair Launch</Trans>
+      </MenuItem>
+      <MenuItem href="/tokenomics" isActive={pathname.startsWith('/tokenomics')}>
+        <Trans>Tokenomics</Trans>
+      </MenuItem>
+      <MenuItem href="/air-drop" isActive={pathname.startsWith('/air-drop')}>
+        <Trans>AirDrop</Trans>
+      </MenuItem>
+      <MenuItem href="/how-to-buy" isActive={pathname.startsWith('/how-to-buy')}>
+        <Trans>How To Buy</Trans>
+      </MenuItem>
+      <MenuItem href="/audit" isActive={pathname.startsWith('/audit')}>
+        <Trans>Audit</Trans>
+      </MenuItem>
+      <MenuItem href="/docs" isActive={pathname.startsWith('/docs')}>
+        <Trans>Docs</Trans>
       </MenuItem>
       <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
         <Trans>Tokens</Trans>
       </MenuItem>
-      {!shouldDisableNFTRoutes && (
-        <MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
-          <Trans>NFTs</Trans>
-        </MenuItem>
-      )}
-      <Box display={{ sm: 'flex', lg: 'none', xxl: 'flex' }} width="full">
-        <MenuItem href="/pools" dataTestId="pool-nav-link" isActive={isPoolActive}>
-          <Trans>Pools</Trans>
-        </MenuItem>
-      </Box>
-      <Box marginY={{ sm: '4', md: 'unset' }}>
-        <MenuDropdown />
-      </Box>
     </>
   )
 }
@@ -112,10 +136,10 @@ const Navbar = ({ blur }: { blur: boolean }) => {
         <Box display="flex" height="full" flexWrap="nowrap">
           <Box className={styles.leftSideContainer}>
             <Box className={styles.logoContainer}>
-              <UniIcon
-                width="48"
-                height="48"
-                data-testid="uniswap-logo"
+              <XdogeLogoIcon
+                width="134"
+                height="40"
+                data-testid="xdoge-logo"
                 className={styles.logo}
                 onClick={handleUniIconClick}
               />
@@ -125,30 +149,22 @@ const Navbar = ({ blur }: { blur: boolean }) => {
                 <ChainSelector leftAlign={true} />
               </Box>
             )}
-            <Row display={{ sm: 'none', lg: 'flex' }}>
+            <Row display={{ sm: 'none', lg: 'flex' }} flex={"1"} justifyContent={"center"}>
               <PageTabs />
             </Row>
           </Box>
-          <Box
-            className={styles.searchContainer}
-            {...(isNavSearchInputVisible && {
-              display: 'flex',
-            })}
-          >
-            <SearchBar />
-          </Box>
+          
           <Box className={styles.rightSideContainer}>
             <Row gap="12">
               <Box position="relative" display={isNavSearchInputVisible ? 'none' : { sm: 'flex' }}>
                 <SearchBar />
               </Box>
-              {isNftPage && sellPageState !== ProfilePageStateType.LISTING && <Bag />}
+              {false && isNftPage && sellPageState !== ProfilePageStateType.LISTING && <Bag />}
               {!isNftPage && (
                 <Box display={{ sm: 'none', lg: 'flex' }}>
                   <ChainSelector />
                 </Box>
               )}
-
               <Web3Status />
             </Row>
           </Box>
