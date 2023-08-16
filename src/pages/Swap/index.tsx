@@ -76,7 +76,7 @@ export const ArrowContainer = styled.div`
 
 const SwapSection = styled.div`
   // background-color: ${({ theme }) => theme.backgroundModule};
-  background: #EEEEEE;
+  background: #0A0B10;
   border-radius: 12px;
   color: ${({ theme }) => theme.textSecondary};
   font-size: 14px;
@@ -591,7 +591,7 @@ export function Swap({
         <SwapSection>
           <Trace section={InterfaceSectionName.CURRENCY_INPUT_PANEL}>
             <SwapCurrencyInputPanel
-              // label={<Trans>You pay</Trans>}
+              label={<Trans>You pay</Trans>}
               disabled={disableTokenInputs}
               value={formattedAmounts[Field.INPUT]}
               showMaxButton={showMaxButton}
@@ -607,7 +607,7 @@ export function Swap({
             />
           </Trace>
         </SwapSection>
-        <ArrowWrapper style={{ borderColor: "#fff", backgroundColor: "#EEEEEE" }} clickable={isSupportedChain(chainId)}>
+        <ArrowWrapper style={{ borderColor: "#181A24", backgroundColor: "#0A0B10" }} clickable={isSupportedChain(chainId)}>
           <TraceEvent
             events={[BrowserEvent.onClick]}
             name={SwapEventName.SWAP_TOKENS_REVERSED}
@@ -620,7 +620,7 @@ export function Swap({
               }}
               color={theme.textPrimary}
             >
-              <ArrowDown size="16" color={"#000"} />
+              <ArrowDown size="16" color={"#fff"} />
             </ArrowContainer>
           </TraceEvent>
         </ArrowWrapper>
@@ -633,7 +633,7 @@ export function Swap({
                 value={formattedAmounts[Field.OUTPUT]}
                 disabled={disableTokenInputs}
                 onUserInput={handleTypeOutput}
-                // label={<Trans>You receive</Trans>}
+                label={<Trans>You receive</Trans>}
                 // label={<span/>}
                 showMaxButton={false}
                 hideBalance={false}

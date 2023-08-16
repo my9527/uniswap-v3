@@ -61,24 +61,26 @@ const CurrencySelect = styled(ButtonGray)<{
 }>`
   align-items: center;
   // background-color: ${({ selected, theme }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
-  background: #C8F2F2;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.20);
   opacity: ${({ disabled }) => (!disabled ? 1 : 0.4)};
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
   // color: ${({ selected, theme }) => (selected ? theme.textPrimary : theme.white)};
-  color: #000000;
+  color: #fff;
   cursor: pointer;
   height: unset;
-  border-radius: 0;
   outline: none;
   user-select: none;
   border: none;
   font-size: 16px;
   font-weight: 500;
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
-  padding: ${({ selected }) => (selected ? '4px 8px 4px 4px' : '6px 6px 6px 8px')};
+  // padding: ${({ selected }) => (selected ? '4px 8px 4px 4px' : '6px 6px 6px 8px')};
+  padding: 8px;
   gap: 8px;
   justify-content: space-between;
   margin-left: ${({ hideInput }) => (hideInput ? '0' : '12px')};
+  height: 32px;
 
   &:hover,
   &:active {
