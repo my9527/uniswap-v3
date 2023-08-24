@@ -85,7 +85,7 @@ const CurrencySelect = styled(ButtonGray)<{
   &:hover,
   &:active {
     // background-color: ${({ theme, selected }) => (selected ? theme.backgroundInteractive : theme.accentAction)};
-    background: #C8F2F2;
+    // background: #C8F2F2;
   }
 
   &:before {
@@ -150,7 +150,7 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
   margin-left: 8px;
 
   path {
-    stroke: ${({ selected, theme }) => "#000"};
+    stroke: ${({ selected, theme }) => "#fff"};
     stroke-width: 2px;
   }
 `

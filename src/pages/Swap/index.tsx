@@ -24,7 +24,7 @@ import confirmPriceImpactWithoutFee from 'components/swap/confirmPriceImpactWith
 import ConfirmSwapModal from 'components/swap/ConfirmSwapModal'
 import PriceImpactModal from 'components/swap/PriceImpactModal'
 import PriceImpactWarning from 'components/swap/PriceImpactWarning'
-import { ArrowWrapper, PageWrapper, SwapWrapper } from 'components/swap/styled'
+import { ArrowWrapper, PageWrapper, SwapFooterWrapper, SwapWrapper } from 'components/swap/styled'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import SwapHeader from 'components/swap/SwapHeader'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
@@ -64,6 +64,13 @@ import { didUserReject } from 'utils/swapErrorToUserReadableMessage'
 import { useScreenSize } from '../../hooks/useScreenSize'
 import { UniswapXOptIn } from './UniswapXOptIn'
 import SwapBtnSvg from "assets/svg/xdoge/swap_btn.svg"
+import { XdogeLogoIcon } from 'nft/components/icons'
+import TWSvg from "assets/svg/xdoge/tw.svg"
+import TelegramSvg from "assets/svg/xdoge/telegram.svg"
+import DiscordSvg from "assets/svg/xdoge/discord.svg"
+import YouToBeSvg from "assets/svg/xdoge/youtube.svg"
+import GithubSvg from "assets/svg/xdoge/github.svg"
+import EmailSvg from "assets/svg/xdoge/email.svg"
 
 export const ArrowContainer = styled.div`
   display: inline-flex;
@@ -115,6 +122,73 @@ const OutputSwapSection = styled(SwapSection)`
   // border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
 `
 
+const SwapBtn = styled(ButtonPrimary)`
+  background-color: transparent;
+  color: #000;
+  &:hover {
+    background-color: transparent;
+  }
+  &:active, &:focus {
+    background-color: transparent;
+    box-shadow: none;
+  }
+`
+
+const ExtraInfoP = styled.p`
+    color: #FFF;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; 
+    letter-spacing: 0.2px;
+    margin: 0;
+`
+
+const TitleEle = styled.div`
+  color: var(--m-3-sys-dark-on-surface, #FFF);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 44px; /* 122.222% */
+  margin-bottom: 36px;
+`
+
+const SocialIcon = styled.img`
+  width: 32px;
+  height: 32px;
+  & + & {
+    margin-left: 24px;
+  }
+`
+
+const SwitchBtnsWrapper = styled.div`
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 4px;
+
+`
+
+const SwitchBtn = styled.div`
+    display: flex;
+    width: 120px;
+    padding: 10px 12px;
+    justify-content: center;
+    &.active {
+      background: white;
+      color: #000000;
+    }
+    
+`
+
 function getIsValidSwapQuote(
   trade: InterfaceTrade | undefined,
   tradeState: TradeState,
@@ -156,9 +230,44 @@ export default function SwapPage({ className }: { className?: string }) {
         />
         <NetworkAlert />
       </PageWrapper>
+      <SwapFooter />
       {location.pathname === '/swap' && <SwitchLocaleLink />}
     </Trace>
   )
+}
+
+export function SwapFooter() {
+  return (
+    <div style={{ width: '100%', color: "#8D9199", fontFamily: "16px"}}>
+      <SwapFooterWrapper>
+        <div>
+          <XdogeLogoIcon style={{
+            marginBottom: '16px'
+          }} />
+          <div>
+            Make Doge Great Again!
+          </div>
+        </div>
+        <div>
+          <div style={{
+            marginBottom: '16px',
+            textAlign: 'right',
+            color: "#ffffff"
+          }}>CONTACT</div>
+          <div>
+            <SocialIcon src={TWSvg} />
+            <SocialIcon src={TelegramSvg} />
+            <SocialIcon src={DiscordSvg} />
+            <SocialIcon src={YouToBeSvg} />
+            <SocialIcon src={GithubSvg} />
+            <SocialIcon src={EmailSvg} />
+          </div>
+        </div>
+      </SwapFooterWrapper>
+      <p style={{ textAlign: 'center' }}>Copyright © 2023-2025 XDOGE Token</p>
+    </div>
+  
+  );
 }
 
 /**
@@ -607,7 +716,14 @@ export function Swap({
             />
           </Trace>
         </SwapSection>
-        <ArrowWrapper style={{ borderColor: "#181A24", backgroundColor: "#0A0B10" }} clickable={isSupportedChain(chainId)}>
+        <ArrowWrapper style={{ 
+            borderColor: "#181A24", 
+            backgroundColor: "#0A0B10", 
+            marginBottom: '-10px', 
+            borderWidth: '6px',
+            height: '44px',
+            width: '44px'
+          }} clickable={isSupportedChain(chainId)}>
           <TraceEvent
             events={[BrowserEvent.onClick]}
             name={SwapEventName.SWAP_TOKENS_REVERSED}
@@ -672,7 +788,8 @@ export function Swap({
         )}
         {showPriceImpactWarning && <PriceImpactWarning priceImpact={largerPriceImpact} />}
         <div style={{
-          backgroundImage: `url('${SwapBtnSvg}')`
+          backgroundImage: `url('${SwapBtnSvg}')`,
+          backgroundSize: '100% 100%'
         }}>
           {swapIsUnsupported ? (
             <ButtonPrimary $borderRadius="16px" disabled={true}>
@@ -681,9 +798,9 @@ export function Swap({
               </ThemedText.DeprecatedMain>
             </ButtonPrimary>
           ) : switchingChain ? (
-            <ButtonPrimary $borderRadius="16px" disabled={true}>
+            <SwapBtn $borderRadius="16px" style={{ backgroundColor: "transparent"}} disabled={true}>
               <Trans>Connecting to {getChainInfo(switchingChain)?.label}</Trans>
-            </ButtonPrimary>
+            </SwapBtn>
           ) : !account ? (
             <TraceEvent
               events={[BrowserEvent.onClick]}
@@ -691,12 +808,13 @@ export function Swap({
               properties={{ received_swap_quote: getIsValidSwapQuote(trade, tradeState, swapInputError) }}
               element={InterfaceElementName.CONNECT_WALLET_BUTTON}
             >
-              <ButtonLight onClick={toggleWalletDrawer} fontWeight={600} $borderRadius="16px">
+              <SwapBtn onClick={toggleWalletDrawer} fontWeight={600} $borderRadius="16px">
                 <Trans>Connect Wallet</Trans>
-              </ButtonLight>
+              </SwapBtn>
             </TraceEvent>
           ) : chainId && chainId !== connectedChainId ? (
-            <ButtonPrimary
+            <SwapBtn
+              style={{ backgroundColor: "transparent"}} 
               $borderRadius="16px"
               onClick={async () => {
                 try {
@@ -712,7 +830,7 @@ export function Swap({
               }}
             >
               Connect to {getChainInfo(chainId)?.label}
-            </ButtonPrimary>
+            </SwapBtn>
           ) : showWrap ? (
             <ButtonPrimary
               $borderRadius="16px"
@@ -720,6 +838,7 @@ export function Swap({
               onClick={handleOnWrap}
               fontWeight={600}
               data-testid="wrap-button"
+              style={{ backgroundColor: "transparent"}}
             >
               {wrapInputError ? (
                 <WrapErrorText wrapInputError={wrapInputError} />
@@ -770,9 +889,40 @@ export function Swap({
     </SwapWrapper>
   )
 
+  const title = (
+    <TitleEle>
+      XDOGE Swap-Share liquidity with Uniswap!
+    </TitleEle>
+  );
+
+  const extraInfo = (
+    <div style={{ 
+      whiteSpace: "nowrap",
+
+    }}>
+      <ExtraInfoP>🚀 Embrace seamless trading with the power of blockchain technology.</ExtraInfoP>
+      <ExtraInfoP>💹 Experience lightning-fast transactions and ultra-low fees, ensuring a smooth trading journey for every user.</ExtraInfoP>
+      <ExtraInfoP>🔥 Enjoy enhanced liquidity and a wide range of supported tokens, making it your go-to platform for all crypto needs.</ExtraInfoP>
+      <ExtraInfoP>💼 With robust security measures, rest assured that your assets are safe and secure.</ExtraInfoP>
+      <ExtraInfoP>💪 Join the community-driven revolution, where every user's voice matters.</ExtraInfoP>
+      <ExtraInfoP>🤝 Unleash the full potential of DeFi with XDOGE V3 - your gateway to the future of decentralized trading.</ExtraInfoP>
+    </div>
+  );
+
+  const switchBtns = (
+    <SwitchBtnsWrapper>
+      <SwitchBtn className='active'>Swap</SwitchBtn>
+      <SwitchBtn>Liquidity</SwitchBtn>
+    </SwitchBtnsWrapper>
+  );
+
+
   return (
     <>
+      {title}
+      {switchBtns}
       {swapElement}
+      {extraInfo}
       {showOptInSmall && <UniswapXOptIn isSmall swapInfo={swapInfo} />}
     </>
   )

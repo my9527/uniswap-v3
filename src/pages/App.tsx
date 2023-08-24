@@ -62,6 +62,7 @@ const BodyWrapper = styled.div`
   align-items: center;
   flex: 1;
   background-image: url("${XdogeBackgroundImage}");
+  background-size: cover;
 `
 
 const MobileBottomBar = styled.div`

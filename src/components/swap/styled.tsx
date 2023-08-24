@@ -10,8 +10,12 @@ import { AutoColumn } from '../Column'
 
 export const PageWrapper = styled.div`
   padding: 68px 8px 0px;
-  max-width: 480px;
+  max-width: 790px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
     padding-top: 48px;
@@ -27,6 +31,9 @@ export const SwapWrapper = styled.main<{ chainId?: number }>`
   position: relative;
   // background: ${({ theme }) => theme.backgroundSurface};
   background: #181A24;
+  width: 480px;
+  margin-top: 32px;
+  margin-bottom: 32px;
 
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.backgroundOutline};
@@ -40,6 +47,17 @@ export const SwapWrapper = styled.main<{ chainId?: number }>`
   &:hover {
     border: 1px solid ${({ theme }) => theme.backgroundOutline};
   }
+
+`
+
+
+export const SwapFooterWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 120px;
+    padding-right: 120px;
+    margin-top: 100px;
 `
 
 export const UniswapPopoverContainer = styled.div`

@@ -18,8 +18,8 @@ const MobileWrapper = styled(AutoColumn)`
 `
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
-  border: 1px solid ${({ theme, disable }) => (disable ? theme.accentActive : theme.backgroundOutline)};
-  border-radius: 16px;
+  border: 1px solid ${({ theme, disable }) => (disable ? "#4ED0D0" : theme.backgroundOutline)};
+  border-radius: 8px;
   display: flex;
   padding: 6px;
   padding-right: 12px;
@@ -30,8 +30,9 @@ const BaseWrapper = styled.div<{ disable?: boolean }>`
     background-color: ${({ theme }) => theme.hoverDefault};
   }
 
-  color: ${({ theme, disable }) => disable && theme.accentActive};
-  background-color: ${({ theme, disable }) => disable && theme.accentActiveSoft};
+  // color: ${({ theme, disable }) => disable && theme.accentActive};
+  color: white;
+  background-color: ${({ theme, disable }) => disable && "rgba(78, 208, 208, 0.20)"};
 `
 
 const formatAnalyticsEventProperties = (currency: Currency, searchQuery: string, isAddressSearch: string | false) => ({
@@ -82,6 +83,9 @@ export default function CommonBases({
                 disable={isSelected}
                 key={currencyId(currency)}
                 data-testid={`common-base-${currency.symbol}`}
+                style={{
+                 
+                }}
               >
                 <CurrencyLogoFromList currency={currency} />
                 <Text fontWeight={500} fontSize={16}>
