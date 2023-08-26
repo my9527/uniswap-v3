@@ -898,6 +898,9 @@ export function Swap({
   const extraInfo = (
     <div style={{ 
       whiteSpace: "nowrap",
+      border: '1px solid rgba(114, 114, 114, 1)',
+      padding: '16px',
+      borderRadius: '4px'
 
     }}>
       <ExtraInfoP>🚀 Embrace seamless trading with the power of blockchain technology.</ExtraInfoP>
