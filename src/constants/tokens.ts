@@ -350,6 +350,10 @@ export function isCelo(chainId: number): chainId is ChainId.CELO | ChainId.CELO_
   return chainId === ChainId.CELO_ALFAJORES || chainId === ChainId.CELO
 }
 
+export function isBase(chainId: number): chainId is ChainId.BASE | ChainId.BASE_GOERLI {
+  return chainId === ChainId.BASE || chainId === ChainId.BASE_GOERLI
+}
+
 function getCeloNativeCurrency(chainId: number) {
   switch (chainId) {
     case ChainId.CELO_ALFAJORES:

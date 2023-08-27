@@ -41,7 +41,7 @@ export function FiatValue({
         {fiatValue.data ? (
           formatNumber(fiatValue.data, NumberType.FiatTokenPrice)
         ) : (
-          <MouseoverTooltip text={<Trans>Not enough liquidity to show accurate USD value.</Trans>}>-</MouseoverTooltip>
+          <MouseoverTooltip text={<Trans>Not enough liquidity to show accurate USD value.</Trans>}></MouseoverTooltip>
         )}
       </ThemedText.BodySmall>
       {priceImpact && (

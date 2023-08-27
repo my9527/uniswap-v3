@@ -6,6 +6,8 @@ import styled, { DefaultTheme, useTheme } from 'styled-components'
 
 import { RowBetween } from '../Row'
 
+import SwapBtnSvg from "assets/svg/xdoge/swap_btn.svg"
+
 export { default as LoadingButtonSpinner } from './LoadingButtonSpinner'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
@@ -95,12 +97,58 @@ export const ButtonPrimary = styled(BaseButton)`
   }
 `
 
+export const SwapBtnPrimary = styled(BaseButton)`
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 0!important;
+  background-image: url("${SwapBtnSvg}");
+  background-size: 100% 100%;
+  border: none;
+
+  // color: ${({ theme }) => theme.accentTextLightPrimary};
+  color: #000;
+  &:focus {
+    // box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.accentAction)};
+    // background-color: ${({ theme }) => darken(0.05, theme.accentAction)};
+  }
+  &:hover {
+    // background-color: ${({ theme }) => darken(0.05, theme.accentAction)};
+  }
+  &:active {
+    // box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.accentAction)};
+    // background-color: ${({ theme }) => darken(0.1, theme.accentAction)};
+  }
+  &:disabled {
+    //background-color: ${({ theme, altDisabledStyle, disabled }) =>
+      altDisabledStyle ? (disabled ? theme.accentAction : theme.backgroundInteractive) : theme.backgroundInteractive};
+    color: ${({ altDisabledStyle, disabled, theme }) =>
+      altDisabledStyle ? (disabled ? theme.white : theme.textSecondary) : theme.textSecondary};
+    cursor: auto;
+    box-shadow: none;
+    // border: 1px solid transparent;
+    outline: none;
+  }
+`
+
+
 export const SmallButtonPrimary = styled(ButtonPrimary)`
   width: auto;
   font-size: 16px;
   padding: ${({ padding }) => padding ?? '8px 12px'};
 
   border-radius: 12px;
+`
+
+export const SwapSmallButtonPrimary = styled(ButtonPrimary)`
+  width: auto;
+  font-size: 16px;
+  padding: ${({ padding }) => padding ?? '8px 12px'};
+
+  border-radius: 12px;
+  background-image: url("${SwapBtnSvg}");
+  background-size: 100% 100%;
 `
 
 const BaseButtonLight = styled(BaseButton)`
@@ -302,6 +350,14 @@ export function ButtonError({ error, ...rest }: { error?: boolean } & BaseButton
     return <ButtonErrorStyle {...rest} />
   } else {
     return <ButtonPrimary {...rest} />
+  }
+}
+
+export function SwapButtonError({ error, ...rest }: { error?: boolean } & BaseButtonProps) {
+  if (error) {
+    return <ButtonErrorStyle {...rest} />
+  } else {
+    return <SwapBtnPrimary {...rest} />
   }
 }
 

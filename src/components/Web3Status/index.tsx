@@ -47,15 +47,18 @@ const Web3StatusGeneric = styled(ButtonSecondary)`
 const Web3StatusConnectWrapper = styled.div`
   ${flexRowNoWrap};
   align-items: center;
-  background-color: ${({ theme }) => theme.accentActionSoft};
-  border-radius: ${FULL_BORDER_RADIUS}px;
+  // background-color: ${({ theme }) => theme.accentActionSoft};
+  // border-radius: ${FULL_BORDER_RADIUS}px;
+  background: linear-gradient(94.52deg, #DCFFFE 26.79%, #FFFFB3 120.39%);
+  border-radius: 2px;
   border: none;
   padding: 0;
   height: 40px;
 
-  color: ${({ theme }) => theme.accentAction};
+  // color: ${({ theme }) => theme.accentAction};
+  color: #000;
   :hover {
-    color: ${({ theme }) => theme.accentActionSoft};
+    // color: ${({ theme }) => theme.accentActionSoft};
     stroke: ${({ theme }) => theme.accentActionSoft};
   }
 

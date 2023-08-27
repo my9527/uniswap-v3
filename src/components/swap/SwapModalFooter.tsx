@@ -21,7 +21,7 @@ import getRoutingDiagramEntries from 'utils/getRoutingDiagramEntries'
 import { formatSwapButtonClickEventProperties } from 'utils/loggingFormatters'
 import { getPriceImpactWarning } from 'utils/prices'
 
-import { ButtonError, SmallButtonPrimary } from '../Button'
+import { ButtonError, SmallButtonPrimary, SwapButtonError } from '../Button'
 import Row, { AutoRow, RowBetween, RowFixed } from '../Row'
 import { GasBreakdownTooltip } from './GasBreakdownTooltip'
 import { SwapCallbackError, SwapShowAcceptChanges } from './styled'
@@ -36,9 +36,10 @@ const StyledAlertTriangle = styled(AlertTriangle)`
   min-width: 24px;
 `
 
-const ConfirmButton = styled(ButtonError)`
+const ConfirmButton = styled(SwapButtonError)`
   height: 56px;
   margin-top: 10px;
+  color: #000;
 `
 
 const DetailRowValue = styled(ThemedText.BodySmall)`
@@ -200,7 +201,7 @@ export default function SwapModalFooter({
               $borderRadius="12px"
               id={InterfaceElementName.CONFIRM_SWAP_BUTTON}
             >
-              <ThemedText.HeadlineSmall color="accentTextLightPrimary">
+              <ThemedText.HeadlineSmall color="#000">
                 <Trans>Confirm swap</Trans>
               </ThemedText.HeadlineSmall>
             </ConfirmButton>

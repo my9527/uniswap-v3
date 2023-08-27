@@ -27,11 +27,11 @@ export const PageWrapper = styled.div`
 `
 
 // Mostly copied from `AppBody` but it was getting too hard to maintain backwards compatibility.
-export const SwapWrapper = styled.main<{ chainId?: number }>`
+export const SwapWrapper = styled.main<{ chainId?: number, isMobile?:boolean }>`
   position: relative;
   // background: ${({ theme }) => theme.backgroundSurface};
   background: #181A24;
-  width: 480px;
+  width: ${({ isMobile }) => isMobile ? '100%' : '480px'};
   margin-top: 32px;
   margin-bottom: 32px;
 
@@ -51,13 +51,14 @@ export const SwapWrapper = styled.main<{ chainId?: number }>`
 `
 
 
-export const SwapFooterWrapper = styled.div`
+export const SwapFooterWrapper = styled.div<{isMobile?: boolean}>`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-left: 120px;
-    padding-right: 120px;
+    padding-left: ${({ isMobile }) => isMobile ? '8px' : '120px'};
+    padding-right: ${({ isMobile }) => isMobile ? '8px' : '120px'};
     margin-top: 100px;
+    flex-direction: ${({ isMobile }) => isMobile ? 'column' : 'row'};
 `
 
 export const UniswapPopoverContainer = styled.div`

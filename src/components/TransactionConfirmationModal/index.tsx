@@ -182,7 +182,7 @@ export function ConfirmationModalContent({
   headerContent?: () => ReactNode
 }) {
   return (
-    <Wrapper>
+    <Wrapper style={{ borderRadius: '8px'}}>
       <AutoColumn gap="sm">
         <Row>
           {headerContent?.()}

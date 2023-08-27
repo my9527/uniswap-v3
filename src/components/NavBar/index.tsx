@@ -12,7 +12,7 @@ import { XdogeLogoIcon } from 'nft/components/icons'
 import { useProfilePageState } from 'nft/hooks'
 import { ProfilePageStateType } from 'nft/types'
 import { ReactNode, useCallback } from 'react'
-import { NavLink, NavLinkProps, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, NavLinkProps, useLocation, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { useIsNavSearchInputVisible } from '../../nft/hooks/useIsNavSearchInputVisible'
@@ -22,6 +22,8 @@ import { ChainSelector } from './ChainSelector'
 import { MenuDropdown } from './MenuDropdown'
 import { SearchBar } from './SearchBar'
 import * as styles from './style.css'
+import { isMobile } from 'utils/userAgent'
+import { MenuCloseIcon, MenuIcon } from 'nft/components/icons'
 
 const Nav = styled.nav`
   padding: ${({ theme }) => `${theme.navVerticalPad}px 12px`};
@@ -38,9 +40,34 @@ interface MenuItemProps {
   isActive?: boolean
   children: ReactNode
   dataTestId?: string
+  external?: boolean
+  // menuStatu?: boolean
 }
 
-const MenuItem = ({ href, dataTestId, id, isActive, children }: MenuItemProps) => {
+const MenuItem = ({ href, dataTestId, id, isActive, children,  external}: MenuItemProps) => {
+  if(external) {
+    return <Link
+    to={{ pathname: href}}
+    onClick={(e) =>{
+      e.preventDefault();
+      window.location.href = href;
+    }}
+      className={isActive ? styles.activeMenuItem : styles.menuItem}
+      id={id}
+      style={{ 
+        textDecoration: 'none',
+        fontSize: '18px',
+        paddingLeft: '0',
+        paddingRight: '0',
+        whiteSpace: 'nowrap',
+        width: 'auto',
+        marginRight: '24px'
+      }}
+      data-testid={dataTestId}
+    >
+    {children}
+    </Link>
+  }
   return (
     <NavLink
       to={href}
@@ -74,7 +101,7 @@ export const PageTabs = () => {
 
   return (
     <>
-      <MenuItem href="/" isActive={pathname.startsWith('/')}>
+      <MenuItem external href="https://xdoge.art" isActive={pathname.startsWith('/')}>
         <Trans>Home</Trans>
       </MenuItem>
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
@@ -111,7 +138,7 @@ export const PageTabs = () => {
   )
 }
 
-const Navbar = ({ blur }: { blur: boolean }) => {
+const Navbar = ({ blur, onMenuToggle, menuStatu }: { blur: boolean, menuStatu: boolean,  onMenuToggle: () => any }) => {
   const isNftPage = useIsNftPage()
   const sellPageState = useProfilePageState((state) => state.state)
   const navigate = useNavigate()
@@ -144,11 +171,11 @@ const Navbar = ({ blur }: { blur: boolean }) => {
                 onClick={handleUniIconClick}
               />
             </Box>
-            {!isNftPage && (
+            {/* {!isNftPage && (
               <Box display={{ sm: 'flex', lg: 'none' }}>
                 <ChainSelector leftAlign={true} />
               </Box>
-            )}
+            )} */}
             <Row display={{ sm: 'none', lg: 'flex' }} flex={"1"} justifyContent={"center"}>
               <PageTabs />
             </Row>
@@ -156,16 +183,20 @@ const Navbar = ({ blur }: { blur: boolean }) => {
           
           <Box className={styles.rightSideContainer}>
             <Row gap="12">
-              <Box position="relative" display={isNavSearchInputVisible ? 'none' : { sm: 'flex' }}>
+              {/* <Box position="relative" display={isNavSearchInputVisible ? 'none' : { sm: 'flex' }}>
                 <SearchBar />
-              </Box>
+              </Box> */}
               {false && isNftPage && sellPageState !== ProfilePageStateType.LISTING && <Bag />}
               {!isNftPage && (
-                <Box display={{ sm: 'none', lg: 'flex' }}>
+                // <Box display={{ sm: 'none', lg: 'flex' }}>
+                <Box display="flex">
                   <ChainSelector />
                 </Box>
               )}
               <Web3Status />
+              {
+                isMobile ? <span onClick={onMenuToggle}>{menuStatu ? <MenuCloseIcon /> : <MenuIcon />}</span> : null
+              }
             </Row>
           </Box>
         </Box>

@@ -6,7 +6,7 @@ import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
 import { useAtom } from 'jotai'
 import { useBag } from 'nft/hooks/useBag'
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router-dom'
 import { shouldDisableNFTRoutesAtom } from 'state/application/atoms'
 import { useRouterPreference } from 'state/user/hooks'
@@ -45,6 +45,7 @@ import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
 import XdogeBackgroundImage from "../assets/svg/xdoge_bg.svg"
+import { isMobile } from 'utils/userAgent'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
@@ -117,6 +118,28 @@ const RedirectHashToPath = ({ children }: { children: JSX.Element }) => {
   return children
 }
 
+const SideMenuWrapper = styled.div`
+  background: rgba(1, 3, 7, 0.60);
+  backdrop-filter: blur(20px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  padding-top: 72px;
+  padding-left: 24px;
+`
+
+const SideMenu = () => {
+  return (
+    <SideMenuWrapper>
+      <PageTabs  />
+    </SideMenuWrapper>
+  );
+}
+
+
 export default function App() {
   const isLoaded = useFeatureFlagsIsLoaded()
   const [shouldDisableNFTRoutes, setShouldDisableNFTRoutes] = useAtom(shouldDisableNFTRoutesAtom)
@@ -126,6 +149,8 @@ export default function App() {
   const isDarkMode = useIsDarkMode()
   const [routerPreference] = useRouterPreference()
   const [scrolledState, setScrolledState] = useState(false)
+
+  const [menuStatu, updateMenuStatu] = useState(false);
 
   useAnalyticsReporter()
 
@@ -196,6 +221,10 @@ export default function App() {
     [account]
   )
 
+  const toggleMenu = useCallback(() => {
+    updateMenuStatu(!menuStatu);
+  }, [menuStatu]);
+
   return (
     <ErrorBoundary>
       <DarkModeQueryParamReader />
@@ -211,7 +240,7 @@ export default function App() {
           }}
         >
           <HeaderWrapper transparent={isHeaderTransparent}>
-            <NavBar blur={isHeaderTransparent} />
+            <NavBar blur={isHeaderTransparent} onMenuToggle={toggleMenu} menuStatu={menuStatu} />
           </HeaderWrapper>
           <BodyWrapper>
             <Popups />
@@ -338,9 +367,11 @@ export default function App() {
               )}
             </Suspense>
           </BodyWrapper>
-          <MobileBottomBar>
+
+          {/* <MobileBottomBar>
             <PageTabs />
-          </MobileBottomBar>
+          </MobileBottomBar> */}
+          {isMobile && menuStatu ? <SideMenu /> : null}
         </StatsigProvider>
       </Trace>
     </ErrorBoundary>

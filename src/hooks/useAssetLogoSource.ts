@@ -1,5 +1,5 @@
 import tokenLogoLookup from 'constants/tokenLogoLookup'
-import { isCelo, nativeOnChain } from 'constants/tokens'
+import { BASE_XDOGE, isBase, isCelo, nativeOnChain } from 'constants/tokens'
 import { checkWarning, WARNING_LEVEL } from 'constants/tokenSafety'
 import { chainIdToNetworkName, getNativeLogoURI } from 'lib/hooks/useCurrencyLogoURIs'
 import uriToHttp from 'lib/utils/uriToHttp'
@@ -51,6 +51,9 @@ function getInitialUrl(
 
   if (chainId && isCelo(chainId) && address === nativeOnChain(chainId).wrapped.address) {
     return celoLogo
+  }
+  if(chainId && isBase(chainId) && address === BASE_XDOGE.address) {
+    return `http://localhost:3000/base-logos/xdoge/logo.png`;
   }
 
   if (checksummedAddress) {

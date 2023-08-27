@@ -14,7 +14,7 @@ import { useWeb3React } from '@web3-react/core'
 import { sendAnalyticsEvent, Trace, TraceEvent, useTrace } from 'analytics'
 import { useToggleAccountDrawer } from 'components/AccountDrawer'
 import AddressInputPanel from 'components/AddressInputPanel'
-import { ButtonError, ButtonLight, ButtonPrimary } from 'components/Button'
+import { ButtonError,SwapButtonError, ButtonLight, ButtonPrimary, SwapBtnPrimary } from 'components/Button'
 import { GrayCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import SwapCurrencyInputPanel from 'components/CurrencyInputPanel/SwapCurrencyInputPanel'
@@ -71,6 +71,7 @@ import DiscordSvg from "assets/svg/xdoge/discord.svg"
 import YouToBeSvg from "assets/svg/xdoge/youtube.svg"
 import GithubSvg from "assets/svg/xdoge/github.svg"
 import EmailSvg from "assets/svg/xdoge/email.svg"
+import { isMobile } from 'utils/userAgent'
 
 export const ArrowContainer = styled.div`
   display: inline-flex;
@@ -122,7 +123,22 @@ const OutputSwapSection = styled(SwapSection)`
   // border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
 `
 
-const SwapBtn = styled(ButtonPrimary)`
+const SwapBtnPrimary1 = styled(ButtonPrimary)`
+  background-color: transparent;
+  color: #000;
+  border-radius: 0!important;
+  &:hover {
+    background-color: transparent;
+  }
+  &:active, &:focus {
+    background-color: transparent!important;
+    box-shadow: none;
+  }
+  & > button {
+    border-radius: 0!important;
+  }
+`
+const SwapBtnError = styled(ButtonError)`
   background-color: transparent;
   color: #000;
   &:hover {
@@ -133,6 +149,7 @@ const SwapBtn = styled(ButtonPrimary)`
     box-shadow: none;
   }
 `
+
 
 const ExtraInfoP = styled.p`
     color: #FFF;
@@ -179,7 +196,7 @@ const SwitchBtnsWrapper = styled.div`
 
 const SwitchBtn = styled.div`
     display: flex;
-    width: 120px;
+    width: 150px;
     padding: 10px 12px;
     justify-content: center;
     &.active {
@@ -239,20 +256,23 @@ export default function SwapPage({ className }: { className?: string }) {
 export function SwapFooter() {
   return (
     <div style={{ width: '100%', color: "#8D9199", fontFamily: "16px"}}>
-      <SwapFooterWrapper>
+      <SwapFooterWrapper isMobile={isMobile}>
         <div>
           <XdogeLogoIcon style={{
             marginBottom: '16px'
           }} />
-          <div>
-            Make Doge Great Again!
+          <div style={{
+            color: isMobile ? "white" : "inherit",
+          }}>
+            The First Futures Exchange And MEME Coin On Basechain!
           </div>
         </div>
         <div>
           <div style={{
             marginBottom: '16px',
-            textAlign: 'right',
-            color: "#ffffff"
+            textAlign: isMobile ? "left" : 'right',
+            color: "#ffffff",
+            marginTop: isMobile ? '45px' : '0'
           }}>CONTACT</div>
           <div>
             <SocialIcon src={TWSvg} />
@@ -657,7 +677,7 @@ export function Swap({
   const showOptInSmall = !useScreenSize().navSearchInputVisible
 
   const swapElement = (
-    <SwapWrapper chainId={chainId} className={className} id="swap-page">
+    <SwapWrapper chainId={chainId} className={className} id="swap-page" isMobile={isMobile}>
       <TokenSafetyModal
         isOpen={importTokensNotInDefault.length > 0 && !dismissTokenWarning}
         tokenAddress={importTokensNotInDefault[0]?.address}
@@ -788,8 +808,8 @@ export function Swap({
         )}
         {showPriceImpactWarning && <PriceImpactWarning priceImpact={largerPriceImpact} />}
         <div style={{
-          backgroundImage: `url('${SwapBtnSvg}')`,
-          backgroundSize: '100% 100%'
+          // backgroundImage: `url('${SwapBtnSvg}')`,
+          // backgroundSize: '100% 100%'
         }}>
           {swapIsUnsupported ? (
             <ButtonPrimary $borderRadius="16px" disabled={true}>
@@ -798,9 +818,9 @@ export function Swap({
               </ThemedText.DeprecatedMain>
             </ButtonPrimary>
           ) : switchingChain ? (
-            <SwapBtn $borderRadius="16px" style={{ backgroundColor: "transparent"}} disabled={true}>
+            <SwapBtnPrimary $borderRadius="0" style={{ backgroundColor: "transparent"}} disabled={true}>
               <Trans>Connecting to {getChainInfo(switchingChain)?.label}</Trans>
-            </SwapBtn>
+            </SwapBtnPrimary>
           ) : !account ? (
             <TraceEvent
               events={[BrowserEvent.onClick]}
@@ -808,14 +828,14 @@ export function Swap({
               properties={{ received_swap_quote: getIsValidSwapQuote(trade, tradeState, swapInputError) }}
               element={InterfaceElementName.CONNECT_WALLET_BUTTON}
             >
-              <SwapBtn onClick={toggleWalletDrawer} fontWeight={600} $borderRadius="16px">
+              <SwapBtnPrimary onClick={toggleWalletDrawer} fontWeight={600} $borderRadius="16px">
                 <Trans>Connect Wallet</Trans>
-              </SwapBtn>
+              </SwapBtnPrimary>
             </TraceEvent>
           ) : chainId && chainId !== connectedChainId ? (
-            <SwapBtn
+            <SwapBtnPrimary
               style={{ backgroundColor: "transparent"}} 
-              $borderRadius="16px"
+              $borderRadius="0"
               onClick={async () => {
                 try {
                   await switchChain(connector, chainId)
@@ -830,10 +850,9 @@ export function Swap({
               }}
             >
               Connect to {getChainInfo(chainId)?.label}
-            </SwapBtn>
+            </SwapBtnPrimary>
           ) : showWrap ? (
-            <ButtonPrimary
-              $borderRadius="16px"
+            <SwapBtnPrimary
               disabled={Boolean(wrapInputError)}
               onClick={handleOnWrap}
               fontWeight={600}
@@ -847,7 +866,7 @@ export function Swap({
               ) : wrapType === WrapType.UNWRAP ? (
                 <Trans>Unwrap</Trans>
               ) : null}
-            </ButtonPrimary>
+            </SwapBtnPrimary>
           ) : routeNotFound && userHasSpecifiedInputOutput && !routeIsLoading && !routeIsSyncing ? (
             <GrayCard style={{ textAlign: 'center' }}>
               <ThemedText.DeprecatedMain mb="4px">
@@ -860,7 +879,7 @@ export function Swap({
               name={SharedEventName.ELEMENT_CLICKED}
               element={InterfaceElementName.SWAP_BUTTON}
             >
-              <ButtonError
+              <SwapButtonError
                 onClick={() => {
                   showPriceImpactWarning ? setShowPriceImpactModal(true) : handleContinueToReview()
                 }}
@@ -880,7 +899,7 @@ export function Swap({
                     <Trans>Swap</Trans>
                   )}
                 </Text>
-              </ButtonError>
+              </SwapButtonError>
             </TraceEvent>
           )}
         </div>
@@ -897,7 +916,8 @@ export function Swap({
 
   const extraInfo = (
     <div style={{ 
-      whiteSpace: "nowrap",
+      // whiteSpace: "nowrap",
+      width: "100%",
       border: '1px solid rgba(114, 114, 114, 1)',
       padding: '16px',
       borderRadius: '4px'
