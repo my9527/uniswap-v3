@@ -1,5 +1,5 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-const GRAPHQL_ENDPOINT = 'https://api.uniswap.org/v1/graphql'
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+const GRAPHQL_ENDPOINT = 'https://uni-api.xdoge.art/v1/graphql'
 
 //TODO: Figure out how to make ApolloClient global variable
 export default new ApolloClient({
@@ -8,6 +8,7 @@ export default new ApolloClient({
   headers: {
     'Content-Type': 'application/json',
     Origin: 'https://app.uniswap.org',
+    // Origin: 'https://my9527.github.io',
     'User-Agent':
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.110 Safari/537.36',
   },
@@ -17,4 +18,11 @@ export default new ApolloClient({
       fetchPolicy: 'cache-first',
     },
   },
+  link: new HttpLink({
+    uri: GRAPHQL_ENDPOINT,
+    fetchOptions: {
+      mode: 'no-cors'
+    }
+  })
+  
 })

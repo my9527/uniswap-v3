@@ -63,7 +63,9 @@ const BodyWrapper = styled.div`
   align-items: center;
   flex: 1;
   background-image: url("${XdogeBackgroundImage}");
-  background-size: cover;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-color: #000;
 `
 
 const MobileBottomBar = styled.div`
@@ -115,7 +117,7 @@ const RedirectHashToPath = ({ children }: { children: JSX.Element }) => {
   if (hash) {
     return <Navigate to={hash.replace('#', '')} replace />
   }
-  return children
+  return <Navigate to={"/swap"} replace />
 }
 
 const SideMenuWrapper = styled.div`
@@ -131,10 +133,10 @@ const SideMenuWrapper = styled.div`
   padding-left: 24px;
 `
 
-const SideMenu = () => {
+const SideMenu = ({ onItemClick }: { onItemClick : () => void}) => {
   return (
     <SideMenuWrapper>
-      <PageTabs  />
+      <PageTabs  onItemClick={onItemClick}  />
     </SideMenuWrapper>
   );
 }
@@ -371,7 +373,7 @@ export default function App() {
           {/* <MobileBottomBar>
             <PageTabs />
           </MobileBottomBar> */}
-          {isMobile && menuStatu ? <SideMenu /> : null}
+          {isMobile && menuStatu ? <SideMenu onItemClick={() => updateMenuStatu(false)} /> : null}
         </StatsigProvider>
       </Trace>
     </ErrorBoundary>

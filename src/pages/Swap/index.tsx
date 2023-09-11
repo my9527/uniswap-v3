@@ -72,6 +72,7 @@ import YouToBeSvg from "assets/svg/xdoge/youtube.svg"
 import GithubSvg from "assets/svg/xdoge/github.svg"
 import EmailSvg from "assets/svg/xdoge/email.svg"
 import { isMobile } from 'utils/userAgent'
+import XdogeLayout from 'components/XdogeLayout'
 
 export const ArrowContainer = styled.div`
   display: inline-flex;
@@ -123,87 +124,20 @@ const OutputSwapSection = styled(SwapSection)`
   // border-bottom: ${({ theme }) => `1px solid ${theme.backgroundSurface}`};
 `
 
-const SwapBtnPrimary1 = styled(ButtonPrimary)`
-  background-color: transparent;
-  color: #000;
-  border-radius: 0!important;
-  &:hover {
-    background-color: transparent;
-  }
-  &:active, &:focus {
-    background-color: transparent!important;
-    box-shadow: none;
-  }
-  & > button {
-    border-radius: 0!important;
-  }
-`
-const SwapBtnError = styled(ButtonError)`
-  background-color: transparent;
-  color: #000;
-  &:hover {
-    background-color: transparent;
-  }
-  &:active, &:focus {
-    background-color: transparent;
-    box-shadow: none;
-  }
-`
-
-
-const ExtraInfoP = styled.p`
-    color: #FFF;
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%; 
-    letter-spacing: 0.2px;
-    margin: 0;
-`
-
-const TitleEle = styled.div`
-  color: var(--m-3-sys-dark-on-surface, #FFF);
-  text-align: center;
-  font-family: Roboto;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 44px; /* 122.222% */
-  margin-bottom: 36px;
+const SocialLink = styled.a`
+cursor: pointer;
+& + & {
+  margin-left: 24px;
+}
 `
 
 const SocialIcon = styled.img`
   width: 32px;
   height: 32px;
+  
   & + & {
     margin-left: 24px;
   }
-`
-
-const SwitchBtnsWrapper = styled.div`
-  display: flex;
-  
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid white;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 4px;
-
-`
-
-const SwitchBtn = styled.div`
-    display: flex;
-    width: 150px;
-    padding: 10px 12px;
-    justify-content: center;
-    &.active {
-      background: white;
-      color: #000000;
-    }
-    
 `
 
 function getIsValidSwapQuote(
@@ -248,7 +182,7 @@ export default function SwapPage({ className }: { className?: string }) {
         <NetworkAlert />
       </PageWrapper>
       <SwapFooter />
-      {location.pathname === '/swap' && <SwitchLocaleLink />}
+      {/* {location.pathname === '/swap' && <SwitchLocaleLink />} */}
     </Trace>
   )
 }
@@ -275,12 +209,12 @@ export function SwapFooter() {
             marginTop: isMobile ? '45px' : '0'
           }}>CONTACT</div>
           <div>
-            <SocialIcon src={TWSvg} />
-            <SocialIcon src={TelegramSvg} />
-            <SocialIcon src={DiscordSvg} />
-            <SocialIcon src={YouToBeSvg} />
-            <SocialIcon src={GithubSvg} />
-            <SocialIcon src={EmailSvg} />
+            <SocialLink target='blank' href='https://twitter.com/xdoge_base'><SocialIcon src={TWSvg} /></SocialLink>
+            <SocialLink target='blank' href='https://t.me/xdoge_base'><SocialIcon src={TelegramSvg} /></SocialLink>
+            <SocialLink target='blank' href='https://discord.gg/xdoge'><SocialIcon src={DiscordSvg} /></SocialLink>
+            <SocialLink target='blank' href='https://www.youtube.com/@xdoge_base'><SocialIcon src={YouToBeSvg} /></SocialLink>
+            <SocialLink target='blank' href='https://github.com/xdoge-base'><SocialIcon src={GithubSvg} /></SocialLink>
+            <SocialLink href='mailto: hi@xdoge.art'><SocialIcon src={EmailSvg} /></SocialLink>
           </div>
         </div>
       </SwapFooterWrapper>
@@ -908,44 +842,14 @@ export function Swap({
     </SwapWrapper>
   )
 
-  const title = (
-    <TitleEle>
-      XDOGE Swap-Share liquidity with Uniswap!
-    </TitleEle>
-  );
-
-  const extraInfo = (
-    <div style={{ 
-      // whiteSpace: "nowrap",
-      width: "100%",
-      border: '1px solid rgba(114, 114, 114, 1)',
-      padding: '16px',
-      borderRadius: '4px'
-
-    }}>
-      <ExtraInfoP>🚀 Embrace seamless trading with the power of blockchain technology.</ExtraInfoP>
-      <ExtraInfoP>💹 Experience lightning-fast transactions and ultra-low fees, ensuring a smooth trading journey for every user.</ExtraInfoP>
-      <ExtraInfoP>🔥 Enjoy enhanced liquidity and a wide range of supported tokens, making it your go-to platform for all crypto needs.</ExtraInfoP>
-      <ExtraInfoP>💼 With robust security measures, rest assured that your assets are safe and secure.</ExtraInfoP>
-      <ExtraInfoP>💪 Join the community-driven revolution, where every user's voice matters.</ExtraInfoP>
-      <ExtraInfoP>🤝 Unleash the full potential of DeFi with XDOGE V3 - your gateway to the future of decentralized trading.</ExtraInfoP>
-    </div>
-  );
-
-  const switchBtns = (
-    <SwitchBtnsWrapper>
-      <SwitchBtn className='active'>Swap</SwitchBtn>
-      <SwitchBtn>Liquidity</SwitchBtn>
-    </SwitchBtnsWrapper>
-  );
-
-
   return (
     <>
-      {title}
-      {switchBtns}
-      {swapElement}
-      {extraInfo}
+      {/* {title}
+      {switchBtns} */}
+      <XdogeLayout>
+        {swapElement}
+      </XdogeLayout>
+      {/* {extraInfo} */}
       {showOptInSmall && <UniswapXOptIn isSmall swapInfo={swapInfo} />}
     </>
   )

@@ -52,8 +52,10 @@ function getInitialUrl(
   if (chainId && isCelo(chainId) && address === nativeOnChain(chainId).wrapped.address) {
     return celoLogo
   }
+  
   if(chainId && isBase(chainId) && address === BASE_XDOGE.address) {
-    return `http://localhost:3000/base-logos/xdoge/logo.png`;
+    // return `http://localhost:3000/base-logos/xdoge/logo.png`;
+    return `${window.location.origin}/cdn/token-logos/${address.toLowerCase()}/logo.svg`;
   }
 
   if (checksummedAddress) {

@@ -35,15 +35,6 @@ export function SwitchLocaleLink() {
   const { to, onClick } = useLocationLinkProps(targetLocale)
 
   if (!targetLocale || !to) return null
+  return null;
 
-  return (
-    <Container>
-      <Trans>
-        Uniswap available in:{' '}
-        <StyledInternalLink onClick={onClick} to={to}>
-          {LOCALE_LABEL[targetLocale]}
-        </StyledInternalLink>
-      </Trans>
-    </Container>
-  )
 }

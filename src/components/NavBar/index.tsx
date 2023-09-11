@@ -41,16 +41,21 @@ interface MenuItemProps {
   children: ReactNode
   dataTestId?: string
   external?: boolean
+  onClick?: () => void
   // menuStatu?: boolean
 }
 
-const MenuItem = ({ href, dataTestId, id, isActive, children,  external}: MenuItemProps) => {
+const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick}: MenuItemProps) => {
   if(external) {
-    return <Link
-    to={{ pathname: href}}
+    return <a
+    // to={{ pathname: href}}
+    href={href}
+  
     onClick={(e) =>{
       e.preventDefault();
+      onClick && onClick();
       window.location.href = href;
+
     }}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
@@ -66,11 +71,14 @@ const MenuItem = ({ href, dataTestId, id, isActive, children,  external}: MenuIt
       data-testid={dataTestId}
     >
     {children}
-    </Link>
+    </a>
   }
   return (
     <NavLink
       to={href}
+      onClick={(e) =>{
+        onClick && onClick();  
+      }}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
       style={{ 
@@ -89,7 +97,7 @@ const MenuItem = ({ href, dataTestId, id, isActive, children,  external}: MenuIt
   )
 }
 
-export const PageTabs = () => {
+export const PageTabs = ({ onItemClick }: { onItemClick? : () => void}) => {
   const { pathname } = useLocation()
   const { chainId: connectedChainId } = useWeb3React()
   const chainName = chainIdToBackendName(connectedChainId)
@@ -101,39 +109,40 @@ export const PageTabs = () => {
 
   return (
     <>
-      <MenuItem external href="https://xdoge.art" isActive={pathname.startsWith('/')}>
+      <MenuItem onClick={onItemClick} external href="https://xdoge.art" isActive={pathname.startsWith('/')}>
         <Trans>Home</Trans>
       </MenuItem>
-      <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
+      <MenuItem onClick={onItemClick} href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href="/futures" isActive={pathname.startsWith('/futures')}>
+      <MenuItem onClick={onItemClick} external href="https://futures.xdoge.art" isActive={pathname.startsWith('/futures')}>
         <Trans>Futures</Trans>
       </MenuItem>
-      <MenuItem href="/farm" isActive={pathname.startsWith('/farm')}>
+      <MenuItem onClick={onItemClick} href="/farm" isActive={pathname.startsWith('/farm')}>
         <Trans>Farm</Trans>
       </MenuItem>
-      <MenuItem href="/fair-launch" isActive={pathname.startsWith('/fair-launch')}>
+      <MenuItem onClick={onItemClick} external href="https://xdoge.art/#fairlaunch" isActive={pathname.startsWith('/fair-launch')}>
         <Trans>Fair Launch</Trans>
       </MenuItem>
-      <MenuItem href="/tokenomics" isActive={pathname.startsWith('/tokenomics')}>
+      <MenuItem onClick={onItemClick} external href="https://xdoge.art/#tokenomics" isActive={pathname.startsWith('/tokenomics')}>
         <Trans>Tokenomics</Trans>
       </MenuItem>
-      <MenuItem href="/air-drop" isActive={pathname.startsWith('/air-drop')}>
+      <MenuItem onClick={onItemClick} external href="https://xdoge.art/#airdrop" isActive={pathname.startsWith('/air-drop')}>
         <Trans>AirDrop</Trans>
       </MenuItem>
-      <MenuItem href="/how-to-buy" isActive={pathname.startsWith('/how-to-buy')}>
+      <MenuItem onClick={onItemClick} external href="https://xdoge.art/#howtobuy" isActive={pathname.startsWith('/how-to-buy')}>
         <Trans>How To Buy</Trans>
       </MenuItem>
-      <MenuItem href="/audit" isActive={pathname.startsWith('/audit')}>
+      <MenuItem onClick={onItemClick} href="#" isActive={pathname.startsWith('/audit')}>
         <Trans>Audit</Trans>
       </MenuItem>
-      <MenuItem href="/docs" isActive={pathname.startsWith('/docs')}>
+      <MenuItem onClick={onItemClick} external href="https://coinbase.com/faucets/base-ethereum-goerli-faucet" isActive={pathname.startsWith('/docs')}>
+        <Trans>Bridge</Trans>
+      </MenuItem>
+      <MenuItem onClick={onItemClick} external href="https://docs.xdoge.art" isActive={pathname.startsWith('/docs')}>
         <Trans>Docs</Trans>
       </MenuItem>
-      <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
-        <Trans>Tokens</Trans>
-      </MenuItem>
+
     </>
   )
 }

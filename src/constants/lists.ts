@@ -28,7 +28,7 @@ export const BASE_LIST1 =
   'https://raw.githubusercontent.com/ethereum-optimism/ethereum-optimism.github.io/master/optimism.tokenlist.json'
 
 export const BASE_LIST =
-  'http://localhost:3000/jsons/base.json'
+  window.location.origin + '/cdn/jsons/base.json';
 
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST, UNI_UNSUPPORTED_LIST]
 

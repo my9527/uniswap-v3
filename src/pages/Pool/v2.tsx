@@ -272,7 +272,7 @@ export default function Pool() {
             </AutoColumn>
           )}
         </PageWrapper>
-        <SwitchLocaleLink />
+        {/* <SwitchLocaleLink /> */}
       </>
     </Trace>
   )

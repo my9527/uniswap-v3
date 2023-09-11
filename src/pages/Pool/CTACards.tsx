@@ -67,6 +67,7 @@ export default function CTACards() {
   const { chainId } = useWeb3React()
   const { infoLink } = getChainInfoOrDefault(chainId)
 
+  return null;
   return (
     <CTASection>
       <CTA href="https://support.uniswap.org/hc/en-us/categories/8122334631437-Providing-Liquidity-">

@@ -16,7 +16,7 @@ beforeEach(() => {
   cy.intercept(/:8545/, logJsonRpc)
 
   // Mock analytics responses to avoid analytics in tests.
-  cy.intercept('https://api.uniswap.org/v1/amplitude-proxy', (req) => {
+  cy.intercept('https://uni-api.xdoge.art/v1/amplitude-proxy', (req) => {
     const requestBody = JSON.stringify(req.body)
     const byteSize = new Blob([requestBody]).size
     req.alias = 'amplitude'

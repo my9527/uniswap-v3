@@ -59,7 +59,7 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
 
   const theme = useTheme()
 
-  const showTestnets = useAtomValue(showTestnetsAtom)
+  const showTestnets = true || useAtomValue(showTestnetsAtom);
   const walletSupportsChain = useWalletSupportedChains()
 
   const [supportedChains, unsupportedChains] = useMemo(() => {

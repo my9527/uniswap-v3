@@ -24,7 +24,7 @@ function onError(error: Error) {
 }
 
 const [web3Network, web3NetworkHooks] = initializeConnector<Network>(
-  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: 1 })
+  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: 8453 })
 )
 export const networkConnection: Connection = {
   getName: () => 'Network',
@@ -173,11 +173,12 @@ const coinbaseWalletConnection: Connection = {
 }
 
 export const connections = [
-  gnosisSafeConnection,
-  uniwalletWCV2ConnectConnection,
+  // gnosisSafeConnection,
+  // uniwalletWCV2ConnectConnection,
   injectedConnection,
-  walletConnectV2Connection,
   coinbaseWalletConnection,
+  walletConnectV2Connection,
+  
   networkConnection,
 ]
 

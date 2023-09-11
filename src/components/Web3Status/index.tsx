@@ -54,6 +54,8 @@ const Web3StatusConnectWrapper = styled.div`
   border: none;
   padding: 0;
   height: 40px;
+  width: 150px;
+  justify-content: center;
 
   // color: ${({ theme }) => theme.accentAction};
   color: #000;

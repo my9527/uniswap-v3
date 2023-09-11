@@ -10,7 +10,7 @@ describe('mini-portfolio activity history', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: 'https://beta.api.uniswap.org/v1/graphql',
+            url: 'https://beta.uni-api.xdoge.art/v1/graphql',
           },
           {
             body: {

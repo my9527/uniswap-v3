@@ -23,6 +23,8 @@ import { PositionDetails } from 'types/position'
 
 import CTACards from './CTACards'
 import { LoadingRows } from './styled'
+import XdogeLayout from 'components/XdogeLayout'
+import { SwapFooter } from 'pages/Swap'
 
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
@@ -115,7 +117,7 @@ const InboxIcon = styled(Inbox)`
 `
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
-  border-radius: 12px;
+  // border-radius: 12px;
   font-size: 16px;
   padding: 6px 8px;
   width: fit-content;
@@ -254,83 +256,87 @@ export default function Pool() {
 
   return (
     <Trace page={InterfacePageName.POOL_PAGE} shouldLogImpression>
-      <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding="0">
-              <ThemedText.LargeHeader>
-                <Trans>Pools</Trans>
-              </ThemedText.LargeHeader>
-              <ButtonRow>
-                {networkSupportsV2 && (
-                  <PoolMenu
-                    menuItems={menuItems}
-                    flyoutAlignment={FlyoutAlignment.LEFT}
-                    ToggleUI={(props: any) => (
-                      <MoreOptionsButton {...props}>
-                        <MoreOptionsText>
-                          <Trans>More</Trans>
-                          <ChevronDown size={15} />
-                        </MoreOptionsText>
-                      </MoreOptionsButton>
-                    )}
-                  />
-                )}
-                <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/ETH">
-                  + <Trans>New Position</Trans>
-                </ResponsiveButtonPrimary>
-              </ButtonRow>
-            </TitleRow>
+        <PageWrapper>
+          <XdogeLayout>
+              <AutoColumn gap="lg" justify="center">
+                <AutoColumn gap="lg" style={{ width: '100%' }}>
+                  <TitleRow padding="0">
+                    <ThemedText.LargeHeader>
+                      {/* <Trans>Pools</Trans> */}
+                      <span></span>
+                    </ThemedText.LargeHeader>
+                    <ButtonRow>
+                      {/* {networkSupportsV2 && (
+                        <PoolMenu
+                          menuItems={menuItems}
+                          flyoutAlignment={FlyoutAlignment.LEFT}
+                          ToggleUI={(props: any) => (
+                            <MoreOptionsButton {...props}>
+                              <MoreOptionsText>
+                                <Trans>More</Trans>
+                                <ChevronDown size={15} />
+                              </MoreOptionsText>
+                            </MoreOptionsButton>
+                          )}
+                        />
+                      )} */}
+                      <ResponsiveButtonPrimary data-cy="join-pool-button" id="join-pool-button" as={Link} to="/add/ETH">
+                        + <Trans>New Position</Trans>
+                      </ResponsiveButtonPrimary>
+                    </ButtonRow>
+                  </TitleRow>
 
-            <MainContentWrapper>
-              {positionsLoading ? (
-                <PositionsLoadingPlaceholder />
-              ) : filteredPositions && closedPositions && filteredPositions.length > 0 ? (
-                <PositionList
-                  positions={filteredPositions}
-                  setUserHideClosedPositions={setUserHideClosedPositions}
-                  userHideClosedPositions={userHideClosedPositions}
-                />
-              ) : (
-                <ErrorContainer>
-                  <ThemedText.BodyPrimary color={theme.textTertiary} textAlign="center">
-                    <InboxIcon strokeWidth={1} style={{ marginTop: '2em' }} />
-                    <div>
-                      <Trans>Your active V3 liquidity positions will appear here.</Trans>
-                    </div>
-                  </ThemedText.BodyPrimary>
-                  {!showConnectAWallet && closedPositions.length > 0 && (
-                    <ButtonText
-                      style={{ marginTop: '.5rem' }}
-                      onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
-                    >
-                      <Trans>Show closed positions</Trans>
-                    </ButtonText>
-                  )}
-                  {showConnectAWallet && (
-                    <TraceEvent
-                      events={[BrowserEvent.onClick]}
-                      name={InterfaceEventName.CONNECT_WALLET_BUTTON_CLICKED}
-                      properties={{ received_swap_quote: false }}
-                      element={InterfaceElementName.CONNECT_WALLET_BUTTON}
-                    >
-                      <ButtonPrimary
-                        style={{ marginTop: '2em', marginBottom: '2em', padding: '8px 16px' }}
-                        onClick={toggleWalletDrawer}
-                      >
-                        <Trans>Connect a wallet</Trans>
-                      </ButtonPrimary>
-                    </TraceEvent>
-                  )}
-                </ErrorContainer>
-              )}
-            </MainContentWrapper>
-            <HideSmall>
-              <CTACards />
-            </HideSmall>
-          </AutoColumn>
-        </AutoColumn>
-      </PageWrapper>
+                  <MainContentWrapper>
+                    {positionsLoading ? (
+                      <PositionsLoadingPlaceholder />
+                    ) : filteredPositions && closedPositions && filteredPositions.length > 0 ? (
+                      <PositionList
+                        positions={filteredPositions}
+                        setUserHideClosedPositions={setUserHideClosedPositions}
+                        userHideClosedPositions={userHideClosedPositions}
+                      />
+                    ) : (
+                      <ErrorContainer>
+                        <ThemedText.BodyPrimary color={theme.textTertiary} textAlign="center">
+                          <InboxIcon strokeWidth={1} style={{ marginTop: '2em' }} />
+                          <div style={{ marginBottom: '1em' }}>
+                            <Trans>Your active V3 liquidity positions will appear here.</Trans>
+                          </div>
+                        </ThemedText.BodyPrimary>
+                        {!showConnectAWallet && closedPositions.length > 0 && (
+                          <ButtonText
+                            style={{ marginTop: '.5rem' }}
+                            onClick={() => setUserHideClosedPositions(!userHideClosedPositions)}
+                          >
+                            <Trans>Show closed positions</Trans>
+                          </ButtonText>
+                        )}
+                        {showConnectAWallet && (
+                          <TraceEvent
+                            events={[BrowserEvent.onClick]}
+                            name={InterfaceEventName.CONNECT_WALLET_BUTTON_CLICKED}
+                            properties={{ received_swap_quote: false }}
+                            element={InterfaceElementName.CONNECT_WALLET_BUTTON}
+                          >
+                            <ButtonPrimary
+                              style={{ marginTop: '2em', marginBottom: '2em', padding: '8px 16px' }}
+                              onClick={toggleWalletDrawer}
+                            >
+                              <Trans>Connect a wallet</Trans>
+                            </ButtonPrimary>
+                          </TraceEvent>
+                        )}
+                      </ErrorContainer>
+                    )}
+                  </MainContentWrapper>
+                  <HideSmall>
+                    <CTACards />
+                  </HideSmall>
+                </AutoColumn>
+              </AutoColumn>
+          </XdogeLayout>
+        </PageWrapper>
+      <SwapFooter/>
       <SwitchLocaleLink />
     </Trace>
   )

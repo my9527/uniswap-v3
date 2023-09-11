@@ -153,7 +153,7 @@ function TransactionSubmittedContent({
             </ButtonLight>
           )}
           <ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }} data-testid="dismiss-tx-confirmation">
-            <ThemedText.HeadlineSmall color={theme.accentTextLightPrimary}>
+            <ThemedText.HeadlineSmall color={"#000"}>
               {inline ? <Trans>Return</Trans> : <Trans>Close</Trans>}
             </ThemedText.HeadlineSmall>
           </ButtonPrimary>

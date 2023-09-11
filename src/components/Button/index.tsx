@@ -37,7 +37,8 @@ export const BaseButton = styled(RebassButton)<BaseButtonProps>`
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
   text-align: center;
-  border-radius: ${({ $borderRadius }) => $borderRadius ?? '20px'};
+  // border-radius: ${({ $borderRadius }) => $borderRadius ?? '20px'};
+  border-radius: 4px;
   outline: none;
   border: 1px solid transparent;
   color: ${({ theme }) => theme.textPrimary};
@@ -69,21 +70,24 @@ export const BaseButton = styled(RebassButton)<BaseButtonProps>`
 `
 
 export const ButtonPrimary = styled(BaseButton)`
-  background-color: ${({ theme }) => theme.accentAction};
+  // background-color: ${({ theme }) => theme.accentAction};
+  background: linear-gradient(94.52deg,#DCFFFE 26.79%,#FFFFB3 120.39%);
+  color: #000;
   font-size: 20px;
   font-weight: 600;
   padding: 16px;
-  color: ${({ theme }) => theme.accentTextLightPrimary};
+  border-radius: 4px;
+  // color: ${({ theme }) => theme.accentTextLightPrimary};
   &:focus {
     box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.accentAction)};
-    background-color: ${({ theme }) => darken(0.05, theme.accentAction)};
+    // background-color: ${({ theme }) => darken(0.05, theme.accentAction)};
   }
   &:hover {
-    background-color: ${({ theme }) => darken(0.05, theme.accentAction)};
+    // background-color: ${({ theme }) => darken(0.05, theme.accentAction)};
   }
   &:active {
     box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.accentAction)};
-    background-color: ${({ theme }) => darken(0.1, theme.accentAction)};
+    // background-color: ${({ theme }) => darken(0.1, theme.accentAction)};
   }
   &:disabled {
     background-color: ${({ theme, altDisabledStyle, disabled }) =>
@@ -138,7 +142,7 @@ export const SmallButtonPrimary = styled(ButtonPrimary)`
   font-size: 16px;
   padding: ${({ padding }) => padding ?? '8px 12px'};
 
-  border-radius: 12px;
+  border-radius: 4px;
 `
 
 export const SwapSmallButtonPrimary = styled(ButtonPrimary)`
@@ -146,7 +150,7 @@ export const SwapSmallButtonPrimary = styled(ButtonPrimary)`
   font-size: 16px;
   padding: ${({ padding }) => padding ?? '8px 12px'};
 
-  border-radius: 12px;
+  border-radius: 4px;
   background-image: url("${SwapBtnSvg}");
   background-size: 100% 100%;
 `

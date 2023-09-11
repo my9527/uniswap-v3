@@ -25,15 +25,7 @@ export function isAppUniswapStagingOrg({ hostname }: { hostname: string }): bool
 
 export function isBrowserRouterEnabled(): boolean {
   if (isProductionEnv()) {
-    if (
-      isAppUniswapOrg(window.location) ||
-      isAppUniswapStagingOrg(window.location) ||
-      // Cypress tests
-      isLocalhost(window.location)
-    ) {
-      return true
-    }
-    return false
+    return true;
   }
   return true
 }

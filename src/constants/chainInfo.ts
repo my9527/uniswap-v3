@@ -267,7 +267,7 @@ const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.base.org',
     explorer: 'https://goerli.basescan.org/',
     infoLink: 'https://info.uniswap.org/#/base/', // base testnet not supported
-    label: 'Base Goerli',
+    label: 'Base Goerli Test',
     logoUrl: baseLogo,
     statusPage: 'https://status.base.org/',
     circleLogoUrl: baseLogo,
