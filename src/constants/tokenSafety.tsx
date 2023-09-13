@@ -3,7 +3,7 @@ import { TokenStandard } from 'graphql/data/__generated__/types-and-hooks'
 import { SearchToken } from 'graphql/data/SearchTokens'
 
 import { ZERO_ADDRESS } from './misc'
-import { NATIVE_CHAIN_ID } from './tokens'
+import { BASE_XDOGE, NATIVE_CHAIN_ID } from './tokens'
 import tokenSafetyLookup, { TOKEN_LIST_TYPES } from './tokenSafetyLookup'
 
 export const TOKEN_SAFETY_ARTICLE = 'https://support.uniswap.org/hc/en-us/articles/8723118437133'
@@ -86,6 +86,9 @@ export const NotFoundWarning: Warning = {
 
 export function checkWarning(tokenAddress: string, chainId?: number | null) {
   if (tokenAddress === NATIVE_CHAIN_ID || tokenAddress === ZERO_ADDRESS) {
+    return null
+  }
+  if(tokenAddress === BASE_XDOGE.address) {
     return null
   }
   switch (tokenSafetyLookup.checkToken(tokenAddress.toLowerCase(), chainId)) {

@@ -9,7 +9,7 @@ import { useBag } from 'nft/hooks/useBag'
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router-dom'
 import { shouldDisableNFTRoutesAtom } from 'state/application/atoms'
-import { useRouterPreference } from 'state/user/hooks'
+import { useAddUserToken, useRouterPreference } from 'state/user/hooks'
 import { StatsigProvider, StatsigUser } from 'statsig-react'
 import styled from 'styled-components'
 import { SpinnerSVG } from 'theme/components'
@@ -45,10 +45,12 @@ import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
 import XdogeBackgroundImage from "../assets/svg/xdoge_bg.svg"
+import XdogeBg from "../assets/images/xdoge-banner.jpeg"
 import { isMobile } from 'utils/userAgent'
 import { ToastContainer, toast } from 'react-toastify';
   
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_XDOGE } from 'constants/tokens'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
@@ -65,7 +67,7 @@ const BodyWrapper = styled.div`
   padding: ${({ theme }) => theme.navHeight}px 0px 0rem 0px;
   align-items: center;
   flex: 1;
-  background-image: url("${XdogeBackgroundImage}");
+  background-image: url("${XdogeBg}");
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-color: #000;
@@ -161,6 +163,11 @@ export default function App() {
   const [menuStatu, updateMenuStatu] = useState(false);
 
   useAnalyticsReporter()
+  const addToken = useAddUserToken()
+
+  useEffect(() => {
+    addToken(BASE_XDOGE);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0)

@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit'
 import { getVersionUpgrade, TokenList, VersionUpgrade } from '@uniswap/token-lists'
 import tokenSafetyLookup from 'constants/tokenSafetyLookup'
 
-import { DEFAULT_LIST_OF_LISTS } from '../../constants/lists'
+import { DEFAULT_LIST_OF_LISTS, OPTIMISM_LIST } from '../../constants/lists'
 import { updateVersion } from '../global/actions'
 import { acceptListUpdate, addList, fetchTokenList, removeList } from './actions'
 

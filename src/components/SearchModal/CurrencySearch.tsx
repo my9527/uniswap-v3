@@ -29,6 +29,7 @@ import CommonBases from './CommonBases'
 import { CurrencyRow, formatAnalyticsEventProperties } from './CurrencyList'
 import CurrencyList from './CurrencyList'
 import { PaddedColumn, SearchInput, Separator } from './styled'
+import { BASE_XDOGE } from 'constants/tokens'
 
 const ContentWrapper = styled(Column)`
   background-color: ${({ theme }) => theme.backgroundSurface};
@@ -87,6 +88,7 @@ export function CurrencySearch({
   }, [isAddressSearch])
 
   const defaultTokens = useDefaultActiveTokens(chainId)
+  console.log("defaultTokens: ", defaultTokens);
   const filteredTokens: Token[] = useMemo(() => {
     return Object.values(defaultTokens).filter(getTokenFilter(debouncedQuery))
   }, [defaultTokens, debouncedQuery])
@@ -123,6 +125,7 @@ export function CurrencySearch({
               // If there is no query, filter out unselected user-added tokens with no balance.
               if (!debouncedQuery && token instanceof UserAddedToken) {
                 if (selectedCurrency?.equals(token) || otherSelectedCurrency?.equals(token)) return true
+                if(token.address === BASE_XDOGE.address) return true
                 return balances[token.address.toLowerCase()]?.usdValue > 0
               }
               return true
@@ -142,7 +145,7 @@ export function CurrencySearch({
   const isLoading = Boolean(balancesAreLoading && !tokenLoaderTimerElapsed)
 
   const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
-
+  console.log("filteredSortedTokens 111: ", balancesAreLoading, filteredSortedTokens, sortedTokens);
   const native = useNativeCurrency(chainId)
   const wrapped = native.wrapped
 
@@ -156,6 +159,8 @@ export function CurrencySearch({
       disableNonToken || native.equals(wrapped) ? [wrapped] : shouldShowWrapped ? [native, wrapped] : [native]
     ).filter((n) => n.symbol?.toLowerCase()?.indexOf(s) !== -1 || n.name?.toLowerCase()?.indexOf(s) !== -1)
 
+    console.log("sortedTokens: ", sortedTokens);
+    console.log("searchCurrencies: ", s, natives, tokens);
     return [...natives, ...tokens]
   }, [
     debouncedQuery,
