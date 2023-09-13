@@ -55,10 +55,13 @@ export const SwapFooterWrapper = styled.div<{isMobile?: boolean}>`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-left: ${({ isMobile }) => isMobile ? '8px' : '120px'};
-    padding-right: ${({ isMobile }) => isMobile ? '8px' : '120px'};
+    // padding-left: ${({ isMobile }) => isMobile ? '8px' : '120px'};
+    // padding-right: ${({ isMobile }) => isMobile ? '8px' : '120px'};
     margin-top: 100px;
     flex-direction: ${({ isMobile }) => isMobile ? 'column' : 'row'};
+    height: ${({ isMobile }) => isMobile ? 'auto' : '241px'};
+    max-width: 1200px;
+    align-items: center;
 `
 
 export const UniswapPopoverContainer = styled.div`

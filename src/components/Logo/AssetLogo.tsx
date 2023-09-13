@@ -33,7 +33,7 @@ const LogoImageWrapper = styled.div<{ size: string; imgLoaded?: boolean }>`
   height: ${({ size }) => size};
   background: ${({ theme, imgLoaded }) => (imgLoaded ? 'none' : theme.backgroundInteractive)};
   transition: background-color ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.in}`};
-  // box-shadow: 0 0 1px white;
+  box-shadow: 0 0 1px white;
   border-radius: 50%;
 `
 

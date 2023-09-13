@@ -50,9 +50,9 @@ const Web3StatusConnectWrapper = styled.div`
   // background-color: ${({ theme }) => theme.accentActionSoft};
   // border-radius: ${FULL_BORDER_RADIUS}px;
   background: linear-gradient(94.52deg, #DCFFFE 26.79%, #FFFFB3 120.39%);
-  border-radius: 2px;
+  border-radius: 4px;
   border: none;
-  padding: 0;
+  padding: 1px;
   height: 40px;
   width: 150px;
   justify-content: center;
@@ -69,6 +69,14 @@ const Web3StatusConnectWrapper = styled.div`
       transition: { duration, timing },
     },
   }) => `${duration.fast} color ${timing.in}`};
+
+  & > button {
+    border: 1px solid #000;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+
+  }
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric)<{
@@ -127,7 +135,7 @@ const StyledConnectButton = styled.button`
   cursor: pointer;
   font-weight: 600;
   font-size: 16px;
-  padding: 10px 12px;
+  // padding: 10px 12px;
   color: inherit;
 `
 
@@ -192,7 +200,7 @@ function Web3StatusInner() {
           onClick={handleWalletDropdownClick}
         >
           <StyledConnectButton tabIndex={-1} data-testid="navbar-connect-wallet">
-            <Trans>Connect</Trans>
+            <Trans>Connect Wallet</Trans>
           </StyledConnectButton>
         </Web3StatusConnectWrapper>
       </TraceEvent>

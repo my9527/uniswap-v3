@@ -29,31 +29,6 @@ export const MenuRow = style([
   },
 ])
 
-export const MenuRowA = style([
-  {
-    ':hover': {
-      background: "#38393c!important",
-    },
-  },
-  {
-    padding: "16px",
-    borderRadius: "4px",
-    fontSize: 14,
-    fontWeight: 400,
-    // lineHeight: ,
-    letterSpacing: .25,
-    color: "white",
-    width: "100%"
-    // padding: 16px!important;
-    // border-radius: 4px!important;
-    // font-size: 14px!important;
-    // font-weight: 400!important;
-    // line-height: 20px!important;
-    // letter-spacing: .25px!important;
-    // color: #fff!important;
-  }
-])
-
 export const PrimaryText = style([
   {
     lineHeight: '24px',

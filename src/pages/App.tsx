@@ -23,7 +23,7 @@ import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
 import { useAnalyticsReporter } from '../components/analytics'
 import ErrorBoundary from '../components/ErrorBoundary'
-import { PageTabs } from '../components/NavBar'
+import { PageTabs, PageTabsMobile } from '../components/NavBar'
 import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
 import Popups from '../components/Popups'
@@ -46,6 +46,9 @@ import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
 import XdogeBackgroundImage from "../assets/svg/xdoge_bg.svg"
 import { isMobile } from 'utils/userAgent'
+import { ToastContainer, toast } from 'react-toastify';
+  
+import 'react-toastify/dist/ReactToastify.css';
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
@@ -59,7 +62,7 @@ const BodyWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: ${({ theme }) => theme.navHeight}px 0px 5rem 0px;
+  padding: ${({ theme }) => theme.navHeight}px 0px 0rem 0px;
   align-items: center;
   flex: 1;
   background-image: url("${XdogeBackgroundImage}");
@@ -121,22 +124,25 @@ const RedirectHashToPath = ({ children }: { children: JSX.Element }) => {
 }
 
 const SideMenuWrapper = styled.div`
-  background: rgba(1, 3, 7, 0.60);
-  backdrop-filter: blur(20px);
+  // background: rgba(1, 3, 7, 0.60);
+  // backdrop-filter: blur(20px);
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
   z-index: 100;
-  padding-top: 72px;
-  padding-left: 24px;
+  // padding-top: 72px;
+  // padding-left: 24px;
+  padding: 80px 24px;
+  background: rgba(18, 19, 22, 0.4);
+  backdrop-filter: blur(20px);
 `
 
 const SideMenu = ({ onItemClick }: { onItemClick : () => void}) => {
   return (
     <SideMenuWrapper>
-      <PageTabs  onItemClick={onItemClick}  />
+      <PageTabsMobile  onItemClick={onItemClick}  />
     </SideMenuWrapper>
   );
 }
@@ -376,6 +382,7 @@ export default function App() {
           {isMobile && menuStatu ? <SideMenu onItemClick={() => updateMenuStatu(false)} /> : null}
         </StatsigProvider>
       </Trace>
+      <ToastContainer />
     </ErrorBoundary>
   )
 }

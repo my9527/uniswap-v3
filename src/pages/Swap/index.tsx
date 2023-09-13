@@ -189,16 +189,30 @@ export default function SwapPage({ className }: { className?: string }) {
 
 export function SwapFooter() {
   return (
-    <div style={{ width: '100%', color: "#8D9199", fontFamily: "16px"}}>
+    <div style={{ 
+      width: '100%',
+      color: "#8D9199", 
+      fontSize: "16px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+      }}>
       <SwapFooterWrapper isMobile={isMobile}>
         <div>
           <XdogeLogoIcon style={{
-            marginBottom: '16px'
+            // marginBottom: '16px'
           }} />
           <div style={{
-            color: isMobile ? "white" : "inherit",
+            // color: isMobile ? "white" : "inherit",
+            marginTop: '16px',
+            color: 'white',
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '24px',
+            letterSpacing: '0.5px'
           }}>
-            The First Futures Exchange And MEME Coin On Basechain!
+            The First perps Exchange And MEME Coin On Basechain!
           </div>
         </div>
         <div>
@@ -218,7 +232,7 @@ export function SwapFooter() {
           </div>
         </div>
       </SwapFooterWrapper>
-      <p style={{ textAlign: 'center' }}>Copyright © 2023-2025 XDOGE Token</p>
+      <p style={{ textAlign: 'center', height: isMobile ? 'auto' : '72px', display: "flex", alignItems: "center" }}>Copyright © 2023-2025 XDOGE Token</p>
     </div>
   
   );

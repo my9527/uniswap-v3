@@ -28,20 +28,6 @@ import { ApplicationModal } from '../../state/application/reducer'
 import * as styles from './MenuDropdown.css'
 import { NavDropdown } from './NavDropdown'
 import { NavIcon } from './NavIcon'
-import { AlertTriangle, ChevronDown, ChevronUp } from 'react-feather'
-
-
-
-
-const DropWrapper = styled(Box)`
-min-width: 181px!important;
-border: 1px solid #b3f1e9!important;
-background: #05080b!important;
-border-radius: 4px!important;
-padding: 12px!important;
-font-size: 14px!important;
-`
-
 
 const PrimaryMenuRow = ({
   to,
@@ -61,7 +47,7 @@ const PrimaryMenuRow = ({
           <Row onClick={close}>{children}</Row>
         </NavLink>
       ) : (
-        <Row cursor="pointer" as="a" href={href} target="_blank" rel="noopener noreferrer" className={styles.MenuRowA}>
+        <Row cursor="pointer" as="a" href={href} target="_blank" rel="noopener noreferrer" className={styles.MenuRow}>
           {children}
         </Row>
       )}
@@ -143,71 +129,78 @@ export const MenuDropdown = () => {
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, isOpen ? toggleOpen : undefined)
 
-  const chevronProps = {
-    height: 20,
-    width: 20,
-    color: "white",
-    
-  }
-
   return (
     <>
       <Box position="relative" ref={ref} marginRight="4">
-        {/* <NavIcon isActive={isOpen} onClick={toggleOpen} label={isOpen ? t`Show resources` : t`Hide resources`}>
+        <NavIcon isActive={isOpen} onClick={toggleOpen} label={isOpen ? t`Show resources` : t`Hide resources`}>
           <EllipsisIcon viewBox="0 0 20 20" width={24} height={24} />
-        </NavIcon> */}
-        <Box onClick={toggleOpen} cursor={"pointer"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
-          <div style={{ 
-            textDecoration: 'none',
-            fontSize: '18px',
-            paddingLeft: '0',
-            paddingRight: '0',
-            whiteSpace: 'nowrap',
-            width: 'auto',
-            fontWeight: '500',
-            cursor: "pointer"
-          }} >
-            <Trans>Fair Launch</Trans>
-          </div>
-          {isOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
-        </Box>
-        
+        </NavIcon>
 
         {isOpen && (
-          <NavDropdown padding={'0'} top={{ sm: 'unset', lg: '52' }} bottom={{ sm: '50', lg: 'unset' }} right="0">
-            <Column>
-              <DropWrapper
+          <NavDropdown top={{ sm: 'unset', lg: '56' }} bottom={{ sm: '50', lg: 'unset' }} right="0">
+            <Column gap="16">
+              <Column paddingX="8" gap="4">
+                <Box display={{ sm: 'none', lg: 'flex', xxl: 'none' }}>
+                  <PrimaryMenuRow to="/pool" close={toggleOpen}>
+                    <Icon>
+                      <PoolIcon width={24} height={24} fill={theme.textPrimary} />
+                    </Icon>
+                    <PrimaryMenuRow.Text>
+                      <Trans>Pool</Trans>
+                    </PrimaryMenuRow.Text>
+                  </PrimaryMenuRow>
+                </Box>
+                <Box
+                  onClick={() =>
+                    openDownloadApp({
+                      element: InterfaceElementName.UNISWAP_WALLET_MODAL_DOWNLOAD_BUTTON,
+                    })
+                  }
+                >
+                  <PrimaryMenuRow close={toggleOpen}>
+                    <Icon>
+                      <AppleLogo width="24px" height="24px" fill={theme.textPrimary} />
+                    </Icon>
+                    <PrimaryMenuRow.Text>
+                      <Trans>Download Uniswap Wallet</Trans>
+                    </PrimaryMenuRow.Text>
+                  </PrimaryMenuRow>
+                </Box>
+                <PrimaryMenuRow to="/vote" close={toggleOpen}>
+                  <Icon>
+                    <GovernanceIcon width={24} height={24} color={theme.textPrimary} />
+                  </Icon>
+                  <PrimaryMenuRow.Text>
+                    <Trans>Vote in governance</Trans>
+                  </PrimaryMenuRow.Text>
+                </PrimaryMenuRow>
+                <PrimaryMenuRow href="https://info.uniswap.org/#/">
+                  <Icon>
+                    <BarChartIcon width={24} height={24} color={theme.textPrimary} />
+                  </Icon>
+                  <PrimaryMenuRow.Text>
+                    <Trans>View more analytics</Trans>
+                  </PrimaryMenuRow.Text>
+                </PrimaryMenuRow>
+              </Column>
+              <Separator />
+              <Box
                 display="flex"
                 flexDirection={{ sm: 'row', md: 'column' }}
                 flexWrap="wrap"
                 alignItems={{ sm: 'center', md: 'flex-start' }}
                 paddingX="8"
-               
-                // style={{
-                //   minWidth: "181px!important",
-                //   border: "1px solid #b3f1e9!important",
-                //   background: "#05080b!important",
-                //   borderRadius: "4px!important",
-                //   padding: "12px!important",
-                //   fontSize: "14px!important"
-                // }}
               >
-                <PrimaryMenuRow href="https://xdoge.art/#fairlaunch">
-                  <Trans>Buy XDOGE</Trans>
-                </PrimaryMenuRow>
-                <PrimaryMenuRow href="https://xdoge.art/#howtobuy">
-                  <Trans>How To Buy</Trans>
-                </PrimaryMenuRow>
-                <PrimaryMenuRow href="https://xdoge.art/#airdrop">
-                  <Trans>Airdrop</Trans>
-                </PrimaryMenuRow>
-                <PrimaryMenuRow href="https://xdoge.art/#tokenomics">
-                  <Trans>Tokenomics</Trans>
-                </PrimaryMenuRow>
-                <PrimaryMenuRow href="https://xdoge.art/xdoge_whitepaper.pdf">
-                  <Trans>Whitepaper</Trans>
-                </PrimaryMenuRow>
-                {/* <SecondaryLinkedText
+                <SecondaryLinkedText href="https://help.uniswap.org/en/">
+                  <Trans>Help center</Trans> ↗
+                </SecondaryLinkedText>
+                <SecondaryLinkedText href="https://docs.uniswap.org/">
+                  <Trans>Documentation</Trans> ↗
+                </SecondaryLinkedText>
+                <SecondaryLinkedText href="https://uniswap.canny.io/feature-requests">
+                  <Trans>Feedback</Trans> ↗
+                </SecondaryLinkedText>
+                <SecondaryLinkedText
                   onClick={() => {
                     toggleOpen()
                     togglePrivacyPolicy()
@@ -219,9 +212,9 @@ export const MenuDropdown = () => {
                   <SecondaryLinkedText onClick={openFeatureFlagsModal}>
                     <Trans>Feature Flags</Trans>
                   </SecondaryLinkedText>
-                )} */}
-              </DropWrapper>
-              {/* <IconRow>
+                )}
+              </Box>
+              <IconRow>
                 <Icon href="https://discord.com/invite/FCfyBSbCU5">
                   <DiscordIconMenu
                     className={styles.hover}
@@ -246,7 +239,7 @@ export const MenuDropdown = () => {
                     color={themeVars.colors.textSecondary}
                   />
                 </Icon>
-              </IconRow> */}
+              </IconRow>
             </Column>
           </NavDropdown>
         )}

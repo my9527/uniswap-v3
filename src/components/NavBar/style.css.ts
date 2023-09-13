@@ -24,7 +24,7 @@ export const baseSideContainer = style([
     display: 'flex',
     // width: 'full',
     // flex: '1',
-    flexShrink: '2',
+    // flexShrink: '2',
   }),
 ])
 
@@ -33,7 +33,7 @@ export const leftSideContainer = style([
   sprinkles({
     alignItems: 'center',
     // width: 'full',
-    flex: '1',
+    // flex: '1',
     justifyContent: 'flex-start',
   }),
 ])
