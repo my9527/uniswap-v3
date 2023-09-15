@@ -88,7 +88,6 @@ export function CurrencySearch({
   }, [isAddressSearch])
 
   const defaultTokens = useDefaultActiveTokens(chainId)
-  console.log("defaultTokens: ", defaultTokens);
   const filteredTokens: Token[] = useMemo(() => {
     return Object.values(defaultTokens).filter(getTokenFilter(debouncedQuery))
   }, [defaultTokens, debouncedQuery])
@@ -145,7 +144,6 @@ export function CurrencySearch({
   const isLoading = Boolean(balancesAreLoading && !tokenLoaderTimerElapsed)
 
   const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
-  console.log("filteredSortedTokens 111: ", balancesAreLoading, filteredSortedTokens, sortedTokens);
   const native = useNativeCurrency(chainId)
   const wrapped = native.wrapped
 
@@ -159,8 +157,6 @@ export function CurrencySearch({
       disableNonToken || native.equals(wrapped) ? [wrapped] : shouldShowWrapped ? [native, wrapped] : [native]
     ).filter((n) => n.symbol?.toLowerCase()?.indexOf(s) !== -1 || n.name?.toLowerCase()?.indexOf(s) !== -1)
 
-    console.log("sortedTokens: ", sortedTokens);
-    console.log("searchCurrencies: ", s, natives, tokens);
     return [...natives, ...tokens]
   }, [
     debouncedQuery,

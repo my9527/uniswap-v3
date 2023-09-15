@@ -68,7 +68,6 @@ export function useDefaultActiveTokens(chainId: Maybe<ChainId>): { [address: str
   const defaultListTokens = useCombinedActiveList()
   const tokensFromMap = useTokensFromMap(defaultListTokens, chainId)
   const userAddedTokens = useUserAddedTokens()
-  console.log("useDefaultActiveTokens:", defaultListTokens, userAddedTokens)
 
   return useMemo(() => {
     return (

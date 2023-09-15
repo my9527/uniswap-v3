@@ -40,8 +40,32 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
   }, {}) as TokenAddressMap
 }
 
+
+function combineMapsNew(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddressMap {
+
+  const r1: { [chainId: string]: true } = {};
+  Object.keys(map1)
+      .concat(Object.keys(map2))
+      .forEach((value) => {
+        r1[value] = true
+        // return memo
+      });
+
+  const chainIds = Object.keys(r1).map((id) => parseInt(id));
+
+  const r2: Mutable<TokenAddressMap>  = {} ;
+  chainIds.forEach((chainId) => {
+    r2[chainId] = {
+      ...map2[chainId],
+      ...map1[chainId]
+    }
+  })
+  return r2 as TokenAddressMap;
+
+}
+
 // merge tokens contained within lists from urls
-export function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMap {
+export function useCombinedTokenMapFromUrlsOld(urls: string[] | undefined): TokenAddressMap {
   const lists = useAllLists()
   return useMemo(() => {
     if (!urls) return {}
@@ -63,6 +87,36 @@ export function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAd
     )
   }, [lists, urls])
 }
+
+export function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMap {
+  const lists = useAllLists()
+  return useMemo(() => {
+    if (!urls) return {}
+
+    let _alltokens = {};
+
+    urls
+        .slice()
+        // sort by priority so top priority goes last
+        .sort(sortByListPriority)
+        .forEach(currentUrl => {
+          const current = lists[currentUrl]?.current
+          if (!current) return;
+          try {
+            _alltokens = combineMapsNew(_alltokens, tokensToChainTokenMap(current))
+          } catch (error) {
+            console.error('Could not show token list due to error', error)
+            // return _alltokens
+            return;
+          }
+        })
+
+    return _alltokens;
+
+  }, [lists, urls])
+}
+
+
 
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {

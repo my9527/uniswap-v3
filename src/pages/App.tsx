@@ -54,10 +54,10 @@ import { BASE_XDOGE } from 'constants/tokens'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
-const NftExplore = lazy(() => import('nft/pages/explore'))
-const Collection = lazy(() => import('nft/pages/collection'))
-const Profile = lazy(() => import('nft/pages/profile/profile'))
-const Asset = lazy(() => import('nft/pages/asset/Asset'))
+// const NftExplore = lazy(() => import('nft/pages/explore'))
+// const Collection = lazy(() => import('nft/pages/collection'))
+// const Profile = lazy(() => import('nft/pages/profile/profile'))
+// const Asset = lazy(() => import('nft/pages/asset/Asset'))
 
 const BodyWrapper = styled.div`
   display: flex;
@@ -325,7 +325,7 @@ export default function App() {
                   <Route path="migrate/v2" element={<MigrateV2 />} />
                   <Route path="migrate/v2/:address" element={<MigrateV2Pair />} />
 
-                  {!shouldDisableNFTRoutes && (
+                  {/* {!shouldDisableNFTRoutes && (
                     <>
                       <Route
                         path="/nfts"
@@ -372,7 +372,7 @@ export default function App() {
                         }
                       />
                     </>
-                  )}
+                  )} */}
 
                   <Route path="*" element={<Navigate to="/not-found" replace />} />
                   <Route path="/not-found" element={<NotFound />} />
