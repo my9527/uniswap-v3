@@ -11,7 +11,7 @@ import { Row } from 'nft/components/Flex'
 import { XdogeLogoIcon } from 'nft/components/icons'
 import { useProfilePageState } from 'nft/hooks'
 import { ProfilePageStateType } from 'nft/types'
-import { ReactNode, useCallback } from 'react'
+import { ReactNode, useCallback, useState } from 'react'
 import { NavLink, NavLinkProps, useLocation, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 // import { } from "react-toastify"
@@ -31,6 +31,9 @@ import { MenuCloseIcon, MenuIcon } from 'nft/components/icons'
 import XDropdown from 'components/XDropdown'
 import { NavDropdown } from './NavDropdown'
 import MenuPanel from './MenuPanel'
+import Column from 'components/Column'
+import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'constants/locales'
+import { LanguageMenuItem } from 'components/AccountDrawer/SettingsMenu'
 
 const Nav = styled.nav`
   padding: ${({ theme }) => `${theme.navVerticalPad}px 24px`};
@@ -69,6 +72,46 @@ const XdogeTitle = styled.div`
   line-height: 40px;
   color: rgb(255, 255, 255);
 `
+
+const DropWrapper = styled(Box)`
+min-width: 181px!important;
+border: 1px solid #b3f1e9!important;
+background: #05080b!important;
+border-radius: 4px!important;
+padding: 12px!important;
+font-size: 14px!important;
+`
+
+const langs: string[] = ['en', 'ru_RU', 'tr', 'zh_HK', 'zh_CN', 'ko', 'ja', 'es_ES', 'pt_PT', 'de_DE', 'fr', 'vi'];
+
+const langsMap = {
+  en: 'en-US',
+  ru_RU: 'ru-RU',
+  tr: 'tr-TR',
+  zh_HK: 'zh-HK',
+  zh_CN: 'zh-CN',
+  ko: 'ko-KO',
+  ja: 'ja-JP',
+  // hi: 'hi',
+  es_ES: 'es-ES',
+  pt_PT: 'pt-PT',
+  de_DE: 'de-DE',
+  fr: 'fr-FR',
+  vi: 'vi-VI'
+
+}
+
+
+const LangItem = styled.div`
+  
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  color: white;
+  width: 100%;
+
+`
+
 
 interface MenuItemProps {
   href: string
@@ -153,6 +196,51 @@ const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick
       {children}
     </NavLink>
   )
+}
+
+
+function LangSelector() {
+  const [curLang, updateLang] = useState('en');
+  const [open, toggleOpen] = useState(false);
+
+  const setLang = useCallback((nextlang: string) => {
+    updateLang(nextlang);
+    toggleOpen(false);
+    location.search = "?lng=" + nextlang;
+
+  }, []);
+
+
+  return ( <Box>
+    <LocaleDiv onClick={() => toggleOpen(true)}>
+       {curLang}
+     </LocaleDiv>
+    {open && 
+    <NavDropdown
+    padding={'0'} top={{ sm: 'unset', lg: '64' }} bottom={{ sm: '50', lg: 'unset' }} right="0"
+    >
+      <Column>
+        <DropWrapper
+          display="flex"
+          flexDirection={{ sm: 'row', md: 'column' }}
+          flexWrap="wrap"
+          alignItems={{ sm: 'center', md: 'flex-start' }}
+          paddingX="8"
+        >
+          {/* {langs.map(lng => {
+            return (<Row key={lng} cursor="pointer" as="div" style={{ width: '100%' }} className={styles.LangItemCls} >
+            <LangItem className='' onClick={() => setLang(lng)}>{lng}</LangItem>
+            </Row>);
+          })} */}
+          {SUPPORTED_LOCALES.map((locale) => (
+            <LanguageMenuItem locale={locale} isActive={false} key={locale} />
+          ))}
+        </DropWrapper>
+      </Column>
+    </NavDropdown>
+    }
+    </Box>)
+
 }
 
 export const PageTabs = ({ onItemClick }: { onItemClick? : () => void}) => {
@@ -343,7 +431,11 @@ const Navbar = ({ blur, onMenuToggle, menuStatu }: { blur: boolean, menuStatu: b
                 </Box>
               )}
               <Web3Status />
-              {isMobile ? null : <LocaleDiv>EN</LocaleDiv>}
+              {/* {isMobile ? null : <LocaleDiv>EN</LocaleDiv>}
+               */}
+              
+               
+              {isMobile && <LangSelector />} 
               {
                 isMobile ? <span onClick={onMenuToggle}>{menuStatu ? <MenuCloseIcon /> : <MenuIcon />}</span> : null
               }

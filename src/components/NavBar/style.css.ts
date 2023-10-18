@@ -97,3 +97,25 @@ export const activeMenuItem = style([
     background: 'backgroundFloating',
   }),
 ])
+
+
+export const LangItemCls = style([
+  {
+    ':hover': {
+      background: "#38393c!important",
+    },
+  },
+  sprinkles({
+    color: 'textPrimary',
+    paddingY: '8',
+    paddingX: '8',
+    width: 'full',
+    whiteSpace: 'nowrap',
+  }),
+  {
+    lineHeight: '24px',
+    textDecoration: 'none',
+    padding: '16px',
+    borderRadius: '4px'
+  },
+])

@@ -1,4 +1,5 @@
 
+import { Trans } from '@lingui/macro'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { isMobile } from 'utils/userAgent'
@@ -74,7 +75,7 @@ export default ({ children }: { children: React.ReactNode }) => {
 
   const title = (
     <TitleEle style={{ whiteSpace: isMobile ? 'normal' : 'nowrap'}}>
-      XDOGE Swap-Share liquidity with Uniswap!
+      <Trans>XDOGE Swap-Share liquidity with Uniswap!</Trans>
     </TitleEle>
   );
   const switchBtns = (

@@ -1,0 +1,77 @@
+
+const fs = require("fs");
+const path = require("path");
+
+const lls = ["de-DE", "es-ES", "fr-FR", "id-ID", "ja-JA", "ko-KO", "pt-PT", "ru-RU", "tr-TR", "vi-VI", "zh-CN", "zh-HK"]
+const spLocalMap = {
+  "zh-CN": "zh-cn",
+  "zh-HK": "zh-hk",
+}
+
+async function readPO(fname) {
+  const fc = fs.readFileSync(path.join(__dirname, "./src/locales", `${fname}.po`), {
+    encoding: 'utf-8'
+  });
+  console.log("fc", fc);
+  return fc;
+}
+
+
+async function readJSON(fname) {
+  const fc = require(path.join(__dirname, "./lla", fname));
+  console.log("fc", fc);
+  return fc;
+}
+
+
+async function main(poName) {
+  const poContent = await readPO("en-US");
+
+  // const poName = "es-ES";
+  const localeName =spLocalMap[poName] ? spLocalMap[poName] : poName.split("-")[0];
+
+  const localJSON = await readJSON(localeName);
+
+  let target = poContent;
+
+  const keys = Object.keys(localJSON);
+
+  const _target = keys.reduce((result, cur) => {
+
+    const msgId = `msgid "${cur}"`;
+    const msgStr = `msgstr "${cur}"`
+    // const msgContent = `msgstr "${cur}"`;
+    if(poContent.indexOf(msgId) > -1) {
+      const msgContent = `msgstr "${localJSON[cur]}"`;
+      console.log('replace:', msgId, msgContent)
+      return result.replace(msgStr, msgContent);
+    
+    }
+    return result;
+
+  }, target);
+
+  // console.log(target);
+
+
+  // console.log(target)
+  // await fs.writeFileSync(path.join(__dirname, "./src/locales", `${poName}.po`), _target, {
+  //   encoding: 'utf-8'
+  // });
+  await fs.writeFileSync(path.join(__dirname, "./src/locales", `${poName}.po`), _target, {
+    encoding: 'utf-8'
+  });
+  
+
+
+}
+
+
+// main();
+async function run() {
+  for(let i of lls) {
+    await main(i);
+  }
+}
+
+// run();

@@ -27,7 +27,7 @@ const InternalLinkMenuItem = styled(Link)`
   color: ${({ theme }) => theme.textPrimary};
 `
 
-function LanguageMenuItem({ locale, isActive }: { locale: SupportedLocale; isActive: boolean }) {
+export function LanguageMenuItem({ locale, isActive }: { locale: SupportedLocale; isActive: boolean }) {
   const { to, onClick } = useLocationLinkProps(locale)
   const theme = useTheme()
 

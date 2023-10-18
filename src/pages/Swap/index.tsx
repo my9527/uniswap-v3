@@ -221,7 +221,7 @@ export function SwapFooter() {
             textAlign: isMobile ? "left" : 'right',
             color: "#ffffff",
             marginTop: isMobile ? '45px' : '0'
-          }}>CONTACT</div>
+          }}><Trans>CONTACT</Trans></div>
           <div>
             <SocialLink target='blank' href='https://twitter.com/xdoge_base'><SocialIcon src={TWSvg} /></SocialLink>
             <SocialLink target='blank' href='https://t.me/xdoge_base'><SocialIcon src={TelegramSvg} /></SocialLink>
@@ -232,7 +232,7 @@ export function SwapFooter() {
           </div>
         </div>
       </SwapFooterWrapper>
-      <p style={{ textAlign: 'center', height: isMobile ? 'auto' : '72px', display: "flex", alignItems: "center" }}>Copyright © 2023-2025 XDOGE Token</p>
+      <p style={{ textAlign: 'center', height: isMobile ? 'auto' : '72px', display: "flex", alignItems: "center" }}><Trans>Copyright © 2023-2025 XDOGE Token</Trans></p>
     </div>
   
   );
