@@ -6,8 +6,13 @@ import { ReactNode, useEffect } from 'react'
 // Initialize the locale immediately to DEFAULT_LOCALE/DEFAULT_MESSAGES,
 // so that messages are shown while the appropriate translation load.
 // This is necessary for initial macro translations (t``) to work in the DEFAULT_LOCALE.
-i18n.load(DEFAULT_LOCALE, DEFAULT_MESSAGES)
-i18n.activate(DEFAULT_LOCALE)
+
+const localLang = window.localStorage.getItem('XDOGE_LANG') || DEFAULT_LOCALE;
+
+// const DEFAULT_MESSAGES = 
+
+i18n.load(localLang, DEFAULT_MESSAGES)
+i18n.activate(localLang)
 
 export async function dynamicActivate(locale: SupportedLocale) {
   try {

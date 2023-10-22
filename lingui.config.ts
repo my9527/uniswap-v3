@@ -55,6 +55,7 @@ const linguiConfig = {
     'vi-VN',
     'zh-CN',
     'zh-TW',
+    'zh-HK'
   ],
   orderBy: 'messageId',
   rootDir: '.',

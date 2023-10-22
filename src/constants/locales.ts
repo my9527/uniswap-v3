@@ -32,6 +32,7 @@ export const SUPPORTED_LOCALES = [
   'vi-VN',
   'zh-CN',
   'zh-TW',
+  'zh-HK',
 ]
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
 
@@ -71,4 +72,47 @@ export const LOCALE_LABEL: { [locale in SupportedLocale]: string } = {
   'vi-VN': 'Tiếng Việt',
   'zh-CN': '简体中文',
   'zh-TW': '繁体中文',
+  'zh-HK': '繁体中文',
+  'vi-VI': 'Tiếng Việt'
+}
+
+
+export const LANGS_MAP = {
+  'en-US': 'en',
+  'ru-RU': 'ru_RU',
+  'tr-TR': 'tr',
+  'zh-HK': 'zh_HK',
+  'zh-CN': 'zh_CN',
+  'ko-KR': 'ko',
+  'ja-JP': 'ja',
+  'es-ES': 'es_ES',
+  'pt-PT': 'pt_PT',
+  'de-DE': 'de_DE',
+  'fr-FR': 'fr',
+  'vi-VI': 'vi',
+
+  // en: 'en-US',
+  // ru_RU: 'ru-RU',
+  // tr: 'tr-TR',
+  // zh_HK: 'zh-HK',
+  // zh_CN: 'zh-CN',
+  // ko: 'ko-KR',
+  // ja: 'ja-JP',
+  // // hi: 'hi',
+  // es_ES: 'es-ES',
+  // pt_PT: 'pt-PT',
+  // de_DE: 'de-DE',
+  // fr: 'fr-FR',
+  // vi: 'vi-VI'
+
+}
+
+export const getXDOGELang = (from: string) => {
+  const lngs = Object.entries(LANGS_MAP);
+  return lngs.filter(v => {
+    if(v[1] === from){
+      return true;
+    }
+    return false;
+  })[0];
 }

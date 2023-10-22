@@ -17,6 +17,7 @@ import { TestnetsToggle } from './TestnetsToggle'
 const InternalLinkMenuItem = styled(Link)`
   ${ClickableStyle}
   flex: 1;
+  width: 100%;
   color: ${({ theme }) => theme.textTertiary};
   display: flex;
   flex-direction: row;
@@ -27,16 +28,21 @@ const InternalLinkMenuItem = styled(Link)`
   color: ${({ theme }) => theme.textPrimary};
 `
 
-export function LanguageMenuItem({ locale, isActive }: { locale: SupportedLocale; isActive: boolean }) {
+export function LanguageMenuItem({ locale, isActive, handleClick, Ac }: { locale: SupportedLocale; isActive: boolean, handleClick?: (evt: any) => void, Ac?: React.ReactNode }) {
   const { to, onClick } = useLocationLinkProps(locale)
   const theme = useTheme()
+
+  const _click: React.MouseEventHandler<HTMLAnchorElement> = (event: any) => {
+    handleClick && handleClick(event);
+    onClick && onClick();
+  }
 
   if (!to) return null
 
   return (
-    <InternalLinkMenuItem onClick={onClick} to={to}>
+    <InternalLinkMenuItem onClick={_click} to={to}>
       <ThemedText.BodySmall data-testid="wallet-language-item">{LOCALE_LABEL[locale]}</ThemedText.BodySmall>
-      {isActive && <Check color={theme.accentActive} opacity={1} size={20} />}
+      {isActive &&  (Ac || <Check color={theme.accentActive} opacity={1} size={20} />)}
     </InternalLinkMenuItem>
   )
 }

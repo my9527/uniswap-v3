@@ -32,8 +32,10 @@ import XDropdown from 'components/XDropdown'
 import { NavDropdown } from './NavDropdown'
 import MenuPanel from './MenuPanel'
 import Column from 'components/Column'
-import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'constants/locales'
+import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale, LANGS_MAP, getXDOGELang} from 'constants/locales'
 import { LanguageMenuItem } from 'components/AccountDrawer/SettingsMenu'
+import { useLingui } from '@lingui/react'
+import LocaleSvg from "../../assets/svg/xdoge/locale.svg";
 
 const Nav = styled.nav`
   padding: ${({ theme }) => `${theme.navVerticalPad}px 24px`};
@@ -82,24 +84,35 @@ padding: 12px!important;
 font-size: 14px!important;
 `
 
-const langs: string[] = ['en', 'ru_RU', 'tr', 'zh_HK', 'zh_CN', 'ko', 'ja', 'es_ES', 'pt_PT', 'de_DE', 'fr', 'vi'];
+const DotSpan = styled.span`
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background: rgb(45, 193, 189);
 
-const langsMap = {
-  en: 'en-US',
-  ru_RU: 'ru-RU',
-  tr: 'tr-TR',
-  zh_HK: 'zh-HK',
-  zh_CN: 'zh-CN',
-  ko: 'ko-KO',
-  ja: 'ja-JP',
-  // hi: 'hi',
-  es_ES: 'es-ES',
-  pt_PT: 'pt-PT',
-  de_DE: 'de-DE',
-  fr: 'fr-FR',
-  vi: 'vi-VI'
+`
 
-}
+
+const SwapLangs = [
+  'en-US',
+  'ru-RU',
+  'tr-TR',
+  'zh-HK',
+  'zh-CN',
+  'ko-KR',
+  'ja-JP',
+  'es-ES',
+  'pt-PT',
+  'de-DE',
+  'fr-FR',
+  'vi-VI',
+]
+
+
+
+
+const localLocale = getXDOGELang(localStorage.getItem('XDOGE_LANG') || 'en-US') ;
+
 
 
 const LangItem = styled.div`
@@ -200,20 +213,29 @@ const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick
 
 
 function LangSelector() {
-  const [curLang, updateLang] = useState('en');
+  const [curLang, updateLang] = useState( localLocale[0] );
   const [open, toggleOpen] = useState(false);
 
-  const setLang = useCallback((nextlang: string) => {
-    updateLang(nextlang);
-    toggleOpen(false);
-    location.search = "?lng=" + nextlang;
+  // const setLang = useCallback((nextlang: string) => {
+  //   updateLang(nextlang);
+  //   toggleOpen(false);
+  //   location.search = "?lng=" + nextlang;
 
-  }, []);
+  // }, []);
+
+  const setLocalLocale = (nextLocal: string) => {
+    updateLang(nextLocal);
+    //@ts-ignore
+    window.localStorage.setItem("XDOGE_LANG", LANGS_MAP[nextLocal] as string);
+    window.localStorage.setItem("XDOGE_LANG_SWAP", nextLocal as string);
+    toggleOpen(false);
+  }
 
 
   return ( <Box>
     <LocaleDiv onClick={() => toggleOpen(true)}>
-       {curLang}
+       {/* {LOCALE_LABEL[curLang]} */}
+       <img src={LocaleSvg} />
      </LocaleDiv>
     {open && 
     <NavDropdown
@@ -232,8 +254,8 @@ function LangSelector() {
             <LangItem className='' onClick={() => setLang(lng)}>{lng}</LangItem>
             </Row>);
           })} */}
-          {SUPPORTED_LOCALES.map((locale) => (
-            <LanguageMenuItem locale={locale} isActive={false} key={locale} />
+          {SwapLangs.map((locale) => (
+            <LanguageMenuItem handleClick={() => setLocalLocale(locale)} locale={locale} isActive={curLang === locale} key={locale} Ac={<DotSpan/>} />
           ))}
         </DropWrapper>
       </Column>
@@ -435,7 +457,7 @@ const Navbar = ({ blur, onMenuToggle, menuStatu }: { blur: boolean, menuStatu: b
                */}
               
                
-              {isMobile && <LangSelector />} 
+              {!isMobile && <LangSelector />} 
               {
                 isMobile ? <span onClick={onMenuToggle}>{menuStatu ? <MenuCloseIcon /> : <MenuIcon />}</span> : null
               }
