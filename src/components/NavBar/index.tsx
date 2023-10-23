@@ -11,7 +11,7 @@ import { Row } from 'nft/components/Flex'
 import { XdogeLogoIcon } from 'nft/components/icons'
 import { useProfilePageState } from 'nft/hooks'
 import { ProfilePageStateType } from 'nft/types'
-import { ReactNode, useCallback, useState } from 'react'
+import { ReactNode, useCallback, useState, useRef } from 'react'
 import { NavLink, NavLinkProps, useLocation, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 // import { } from "react-toastify"
@@ -36,6 +36,7 @@ import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale, LANGS_MAP, getXDOGELa
 import { LanguageMenuItem } from 'components/AccountDrawer/SettingsMenu'
 import { useLingui } from '@lingui/react'
 import LocaleSvg from "../../assets/svg/xdoge/locale.svg";
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
 
 const Nav = styled.nav`
   padding: ${({ theme }) => `${theme.navVerticalPad}px 24px`};
@@ -111,7 +112,7 @@ const SwapLangs = [
 
 
 
-const localLocale = getXDOGELang(localStorage.getItem('XDOGE_LANG') || 'en-US') ;
+const localLocale = ( getXDOGELang(localStorage.getItem('XDOGE_LANG') || 'en') || 'en-US') ;
 
 
 
@@ -134,14 +135,17 @@ interface MenuItemProps {
   dataTestId?: string
   external?: boolean
   onClick?: () => void
+  newPage?: boolean
   // menuStatu?: boolean
 }
 
-const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick}: MenuItemProps) => {
+const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick, newPage}: MenuItemProps) => {
   if(external) {
     return <a
     // to={{ pathname: href}}
     href={href}
+
+    target={newPage ? '_blank' : '_self'}
   
     onClick={(e) =>{
       e.preventDefault();
@@ -215,6 +219,8 @@ const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick
 function LangSelector() {
   const [curLang, updateLang] = useState( localLocale[0] );
   const [open, toggleOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null)
+  useOnClickOutside(ref, open ? () => { toggleOpen(false) } : undefined)
 
   // const setLang = useCallback((nextlang: string) => {
   //   updateLang(nextlang);
@@ -232,8 +238,8 @@ function LangSelector() {
   }
 
 
-  return ( <Box>
-    <LocaleDiv onClick={() => toggleOpen(true)}>
+  return ( <Box ref={ref}>
+    <LocaleDiv onClick={() => toggleOpen(!open)}>
        {/* {LOCALE_LABEL[curLang]} */}
        <img src={LocaleSvg} />
      </LocaleDiv>
@@ -320,10 +326,10 @@ export const PageTabs = ({ onItemClick }: { onItemClick? : () => void}) => {
       <MenuItem onClick={onItemClick} href="#" isActive={pathname.startsWith('/audit')}>
         <Trans>Audit</Trans>
       </MenuItem>
-      <MenuItem onClick={onItemClick} external href="https://coinbase.com/faucets/base-ethereum-goerli-faucet" isActive={pathname.startsWith('/docs')}>
+      <MenuItem onClick={onItemClick} external newPage href="https://bridge.base.org/deposit" isActive={pathname.startsWith('/deposit')}>
         <Trans>Bridge</Trans>
       </MenuItem>
-      <MenuItem onClick={onItemClick} external href="https://docs.xdoge.art" isActive={pathname.startsWith('/docs')}>
+      <MenuItem onClick={onItemClick} external newPage href="https://docs.xdoge.art" isActive={pathname.startsWith('/docs')}>
         <Trans>Docs</Trans>
       </MenuItem>
 
@@ -377,10 +383,10 @@ export const PageTabsMobile = ({ onItemClick }: { onItemClick? : () => void}) =>
       <MenuItem onClick={onItemClick} external href="#" isActive={pathname.startsWith('/audit')}>
         <Trans>Audit</Trans>
       </MenuItem>
-      <MenuItem onClick={onItemClick} external href="https://coinbase.com/faucets/base-ethereum-goerli-faucet" isActive={pathname.startsWith('/docs')}>
+      <MenuItem onClick={onItemClick} external  newPage href="https://bridge.base.org/deposit" isActive={pathname.startsWith('/deposit')}>
         <Trans>Bridge</Trans>
       </MenuItem>
-      <MenuItem onClick={onItemClick} external href="https://docs.xdoge.art" isActive={pathname.startsWith('/docs')}>
+      <MenuItem onClick={onItemClick} external newPage href="https://docs.xdoge.art" isActive={pathname.startsWith('/docs')}>
         <Trans>Docs</Trans>
       </MenuItem>
 

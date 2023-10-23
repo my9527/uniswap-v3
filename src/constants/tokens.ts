@@ -19,6 +19,8 @@ const USDC_GOERLI = new Token(ChainId.GOERLI, '0x07865c6e87b9f70255377e024ace663
 const USDC_SEPOLIA = new Token(ChainId.SEPOLIA, '0x6f14C02Fc1F78322cFd7d707aB90f18baD3B54f5', 6, 'USDC', 'USD//C')
 
 export const BASE_XDOGE = new Token(ChainId.BASE, '0x0CC6C6fa76B56bBDE0625bB2399Eb326631FC605', 6, 'XDOGE', 'XDOGE')
+export const BASE_USDC = new Token(ChainId.BASE, '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913', 6, 'USDC', 'USDC')
+export const BASE_DAI = new Token(ChainId.BASE, '0x50c5725949a6f0c72e6c4a641f24049a917db0cb', 6, 'DAI', 'DAI')
 
 export const USDC_OPTIMISM = new Token(
   ChainId.OPTIMISM,

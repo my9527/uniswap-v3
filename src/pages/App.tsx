@@ -51,6 +51,8 @@ import { ToastContainer, toast } from 'react-toastify';
   
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_XDOGE } from 'constants/tokens'
+import { Trans, t, msg } from '@lingui/macro'
+import { i18n } from "@lingui/core";
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
@@ -213,6 +215,13 @@ export default function App() {
   }, [isDarkMode])
 
   useEffect(() => {
+    
+    const titleEle = document.getElementsByTagName("title")[0];
+    titleEle.innerHTML = i18n._(t`The First Perps Exchange And MEME Coin On Basechain!`) || "";
+
+  }, [i18n.locale]);
+
+  useEffect(() => {
     user.set(CustomUserProperties.ROUTER_PREFERENCE, routerPreference)
   }, [routerPreference])
 
@@ -240,6 +249,14 @@ export default function App() {
     updateMenuStatu(!menuStatu);
   }, [menuStatu]);
 
+  const renderTitle = () => {
+    return (
+      <title>
+        XDOGE - <Trans>The First Perps Exchange And MEME Coin On Basechain!</Trans>
+      </title>
+    );
+  }
+
   return (
     <ErrorBoundary>
       <DarkModeQueryParamReader />
@@ -254,6 +271,8 @@ export default function App() {
             api: process.env.REACT_APP_STATSIG_PROXY_URL,
           }}
         >
+          
+          {/* {renderTitle()} */}
           <HeaderWrapper transparent={isHeaderTransparent}>
             <NavBar blur={isHeaderTransparent} onMenuToggle={toggleMenu} menuStatu={menuStatu} />
           </HeaderWrapper>

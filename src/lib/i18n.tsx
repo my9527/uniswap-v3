@@ -2,13 +2,22 @@ import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { DEFAULT_LOCALE, DEFAULT_MESSAGES, SupportedLocale } from 'constants/locales'
 import { ReactNode, useEffect } from 'react'
+import { getXDOGELang } from 'constants/locales'
 
 // Initialize the locale immediately to DEFAULT_LOCALE/DEFAULT_MESSAGES,
 // so that messages are shown while the appropriate translation load.
 // This is necessary for initial macro translations (t``) to work in the DEFAULT_LOCALE.
 
-const localLang = window.localStorage.getItem('XDOGE_LANG') || DEFAULT_LOCALE;
+const localLang = (getXDOGELang(window.localStorage.getItem('XDOGE_LANG') || DEFAULT_LOCALE) || [])[0] || DEFAULT_LOCALE;
 
+// const _user = JSON.parse(localStorage.getItem("redux_localstorage_simple_user") || "{}");
+
+// _user.userLocale = localLang;
+// localStorage.setItem("redux_localstorage_simple_user", JSON.stringify(_user));
+// console.log("curLang localLang", localLang)
+
+// //@ts-ignore
+// window.i18n = i18n;
 // const DEFAULT_MESSAGES = 
 
 i18n.load(localLang, DEFAULT_MESSAGES)

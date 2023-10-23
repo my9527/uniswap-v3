@@ -89,7 +89,7 @@ export const LANGS_MAP = {
   'pt-PT': 'pt_PT',
   'de-DE': 'de_DE',
   'fr-FR': 'fr',
-  'vi-VI': 'vi',
+  'vi-VN': 'vi',
 
   // en: 'en-US',
   // ru_RU: 'ru-RU',
