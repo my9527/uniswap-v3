@@ -73,6 +73,8 @@ import GithubSvg from "assets/svg/xdoge/github.svg"
 import EmailSvg from "assets/svg/xdoge/email.svg"
 import { isMobile } from 'utils/userAgent'
 import XdogeLayout from 'components/XdogeLayout'
+import { i18n } from "@lingui/core";
+import { t, msg } from '@lingui/macro'
 
 export const ArrowContainer = styled.div`
   display: inline-flex;
@@ -212,7 +214,7 @@ export function SwapFooter() {
             lineHeight: '24px',
             letterSpacing: '0.5px'
           }}>
-            The First perps Exchange And MEME Coin On Basechain!
+            {i18n._(t`The First Perps Exchange And MEME Coin On Basechain!`)}
           </div>
         </div>
         <div>

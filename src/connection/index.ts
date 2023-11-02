@@ -160,8 +160,12 @@ const coinbaseWalletConnection: Connection = {
   hooks: web3CoinbaseWalletHooks,
   type: ConnectionType.COINBASE_WALLET,
   getIcon: () => COINBASE_ICON,
-  shouldDisplay: () =>
-    Boolean((isMobile && !getIsInjectedMobileBrowser()) || !isMobile || getIsCoinbaseWalletBrowser()),
+  shouldDisplay: () =>{
+    if(isMobile) {
+      return false;
+    }
+    return Boolean((isMobile && !getIsInjectedMobileBrowser()) || !isMobile || getIsCoinbaseWalletBrowser())
+  },
   // If on a mobile browser that isn't the coinbase wallet browser, deeplink to the coinbase wallet app
   overrideActivate: () => {
     if (isMobile && !getIsInjectedMobileBrowser()) {

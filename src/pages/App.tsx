@@ -7,7 +7,7 @@ import { useFeatureFlagsIsLoaded } from 'featureFlags'
 import { useAtom } from 'jotai'
 import { useBag } from 'nft/hooks/useBag'
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
-import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useSearchParams, useNavigate } from 'react-router-dom'
 import { shouldDisableNFTRoutesAtom } from 'state/application/atoms'
 import { useAddUserToken, useRouterPreference } from 'state/user/hooks'
 import { StatsigProvider, StatsigUser } from 'statsig-react'
@@ -53,6 +53,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BASE_XDOGE } from 'constants/tokens'
 import { Trans, t, msg } from '@lingui/macro'
 import { i18n } from "@lingui/core";
+import { getXDOGELang } from 'constants/locales'
+import { useLocationLinkProps } from 'hooks/useLocationLinkProps'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
 const Vote = lazy(() => import('./Vote'))
@@ -163,12 +165,32 @@ export default function App() {
   const [scrolledState, setScrolledState] = useState(false)
 
   const [menuStatu, updateMenuStatu] = useState(false);
+  const navigate = useNavigate();
+  //@ts-ignore
+  const storedLang = getXDOGELang(window.localStorage.getItem('XDOGE_LANG'));
+  const { to } = useLocationLinkProps(storedLang[0])
+  const { search } = useLocation();
+  console.log("search: ", search, to);
 
   useAnalyticsReporter()
   const addToken = useAddUserToken()
 
   useEffect(() => {
     addToken(BASE_XDOGE);
+  }, []);
+
+  useEffect(() => {
+    
+    if(search === '?' + to?.search || !to) {
+      return;
+    }
+    
+    console.log("storedLang:", storedLang)
+    if(storedLang[0]) {
+      navigate(to, {
+        replace: true,
+      });
+    }
   }, []);
 
   useEffect(() => {

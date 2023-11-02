@@ -106,7 +106,7 @@ const SwapLangs = [
   'pt-PT',
   'de-DE',
   'fr-FR',
-  'vi-VI',
+  'vi-VN',
 ]
 
 
@@ -145,10 +145,14 @@ const MenuItem = ({ href, dataTestId, id, isActive, children,  external, onClick
     // to={{ pathname: href}}
     href={href}
 
-    target={newPage ? '_blank' : '_self'}
+    target={newPage ? '__blank' : '_self'}
   
     onClick={(e) =>{
       e.preventDefault();
+      if(newPage) {
+        window.open(href);
+        return;
+      }
       onClick && onClick();
       window.location.href = href;
 
@@ -239,21 +243,26 @@ function LangSelector() {
 
 
   return ( <Box ref={ref}>
-    <LocaleDiv onClick={() => toggleOpen(!open)}>
+    <LocaleDiv style={{ marginLeft: isMobile ? '0' : '16px' }} onClick={() => toggleOpen(!open)}>
        {/* {LOCALE_LABEL[curLang]} */}
        <img src={LocaleSvg} />
      </LocaleDiv>
     {open && 
     <NavDropdown
-    padding={'0'} top={{ sm: 'unset', lg: '64' }} bottom={{ sm: '50', lg: 'unset' }} right="0"
+    //@ts-ignore
+    width={{ sm: '288', md: '292' }}
+    padding={'0'} top={{ sm: '64', lg: '64' }} bottom={{ sm: 'unset', lg: 'unset' }}
+    left={{ sm: '28', lg: 'unset' }}
+    right="0"
     >
       <Column>
         <DropWrapper
           display="flex"
-          flexDirection={{ sm: 'row', md: 'column' }}
+          flexDirection={{ sm: 'column', md: 'column' }}
           flexWrap="wrap"
           alignItems={{ sm: 'center', md: 'flex-start' }}
           paddingX="8"
+          width={{ sm: '292' }}
         >
           {/* {langs.map(lng => {
             return (<Row key={lng} cursor="pointer" as="div" style={{ width: '100%' }} className={styles.LangItemCls} >
@@ -463,7 +472,7 @@ const Navbar = ({ blur, onMenuToggle, menuStatu }: { blur: boolean, menuStatu: b
                */}
               
                
-              {!isMobile && <LangSelector />} 
+              <LangSelector />
               {
                 isMobile ? <span onClick={onMenuToggle}>{menuStatu ? <MenuCloseIcon /> : <MenuIcon />}</span> : null
               }

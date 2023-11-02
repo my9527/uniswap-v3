@@ -213,12 +213,13 @@ function useStepContents(args: ContentArgs): Record<PendingConfirmModalState, Pe
         bottomLabel: revocationPending ? t`Pending...` : t`Proceed in your wallet`,
       },
       [ConfirmModalState.APPROVING_TOKEN]: {
-        title: t`Enable spending ${approvalCurrency?.symbol ?? 'this token'} on Uniswap`,
-        subtitle: (
-          <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/8120520483085">
-            <Trans>Why is this required?</Trans>
-          </ExternalLink>
-        ),
+        title: t`Enable spending ${approvalCurrency?.symbol ?? 'this token'} on XDOGESwap`,
+        // subtitle: (
+        //   <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/8120520483085">
+        //     <Trans>Why is this required?</Trans>
+        //   </ExternalLink>
+        // ),
+        subtitle: '',
         bottomLabel: tokenApprovalPending ? t`Pending...` : t`Proceed in your wallet`,
       },
       [ConfirmModalState.PERMITTING]: {
