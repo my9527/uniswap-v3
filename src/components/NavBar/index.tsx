@@ -102,6 +102,7 @@ const SwapLangs = [
   'zh-CN',
   'ko-KR',
   'ja-JP',
+  'hi-HI',
   'es-ES',
   'pt-PT',
   'de-DE',
@@ -112,7 +113,7 @@ const SwapLangs = [
 
 
 
-const localLocale = ( getXDOGELang(localStorage.getItem('XDOGE_LANG') || 'en') || 'en-US') ;
+const localLocale =  getXDOGELang(localStorage.getItem('XDOGE_LANG') || 'en') || ['en-US'];
 
 
 

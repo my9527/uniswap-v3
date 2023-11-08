@@ -33,6 +33,7 @@ export const SUPPORTED_LOCALES = [
   'zh-CN',
   'zh-TW',
   'zh-HK',
+  'hi-HI',
 ]
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
 
@@ -73,7 +74,8 @@ export const LOCALE_LABEL: { [locale in SupportedLocale]: string } = {
   'zh-CN': '简体中文',
   'zh-TW': '繁体中文',
   'zh-HK': '繁体中文',
-  'vi-VI': 'Tiếng Việt'
+  'vi-VI': 'Tiếng Việt',
+  'hi-HI': 'हिंदी'
 }
 
 
@@ -90,6 +92,8 @@ export const LANGS_MAP = {
   'de-DE': 'de_DE',
   'fr-FR': 'fr',
   'vi-VN': 'vi',
+  'id-ID': 'id',
+  'hi-HI': 'hi',
 
   // en: 'en-US',
   // ru_RU: 'ru-RU',
@@ -114,5 +118,5 @@ export const getXDOGELang = (from: string) => {
       return true;
     }
     return false;
-  })[0];
+  })[0] || ['en-US'];
 }

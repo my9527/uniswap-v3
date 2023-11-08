@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const lls = ["de-DE", "es-ES", "fr-FR", "id-ID", "ja-JP", "ko-KR", "pt-PT", "ru-RU", "tr-TR", "vi-VN", "zh-CN", "zh-HK"]
+const lls = ["de-DE", "es-ES", "fr-FR", "id-ID", "ja-JP", "ko-KR", "pt-PT", "ru-RU", "tr-TR", "vi-VN", "zh-CN", "zh-HK", 'hi-HI']
 const spLocalMap = {
   "zh-CN": "zh-cn",
   "zh-HK": "zh-hk",
@@ -43,14 +43,17 @@ async function main(poName) {
     // const msgStr = `msgstr "${cur}"`
     // const msgContent = `msgstr "${cur}"`;
     if(poContent.indexOf(msgId) > -1) {
+      console.log("replace key: ", msgId, cur, localJSON[cur]);
       // const msgContent = `msgstr "${localJSON[cur]}"`;
       // console.log('replace:', `msgid "${cur}"\nmsgstr ""`, msgContent);
-      return result.replace(`msgid "${cur}"\nmsgstr ""`, `msgid "${cur}"\nmsgstr "${localJSON[cur]}"`);
+      return result.replace(`msgid "${cur}"\nmsgstr "${cur}"`, `msgid "${cur}"\nmsgstr "${localJSON[cur]}"`);
     
     }
     return result;
 
   }, target);
+
+  // console.log(_target);
 
   // console.log(target);
 
@@ -64,6 +67,7 @@ async function main(poName) {
   await fs.writeFileSync(path.join(__dirname, "./locales", `${poName}.po`), _target, {
     encoding: 'utf-8'
   });
+  console.log("write file done", path.join(__dirname, "./locales", `${poName}.po`));
   
 
 
@@ -77,9 +81,11 @@ async function run() {
   }
 }
 
-run();
+// run();
 
 
-function tt() {
-  
+async function tt() {
+  await main('hi-HI');
 }
+
+tt();
